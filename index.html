@@ -166,16 +166,16 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
 <body>
 <div class="app">
   <header class="bar">
-    <div class="t"><b id="barTitle">そのｗ、笑ってる？</b><small id="barSub">保護者のためのグループトーク体験</small></div>
+    <div class="t"><b id="barTitle">そのｗ、笑ってる？</b><small id="barSub">親子で知るグループトーク体験</small></div>
     <button class="gtog" id="glBtn" aria-pressed="false" hidden>ことば解説</button>
     <button class="stop" id="stopBtn" hidden>やめる</button>
   </header>
 
   <!-- START -->
   <section class="page" id="pStart">
-    <div class="eyebrow">保護者のための体験ページ　約15分</div>
+    <div class="eyebrow">保護者版・親子で体験する子ども版</div>
     <h1 class="hero-t">そのｗ、<br>笑ってる？</h1>
-    <p class="lead">中学生のわが子のスマホに、ある3日間に届くグループトークを体験します。表のグループで流れる「ｗ」と、本人のいないグループで流れる「ｗ」。そのあとは、親として家での声かけを選びます。</p>
+    <p class="lead">中学生のわが子のスマホに、ある3日間に届くグループトークを体験します。表のグループで流れる「ｗ」と、本人のいないグループで流れる「ｗ」。保護者が体験する版と、お子さんがおうちの人と一緒に体験する子ども版があります。</p>
 
     <div class="prev" aria-hidden="true">
       <div class="prev-h">2年3組 みんな<span>メンバー 32人</span></div>
@@ -195,7 +195,32 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
     </div>
 
     <div class="field">
-      <label for="nameIn">お子さんの名前（体験の中での仮の名前）</label>
+      <span class="lb">どちらで体験しますか</span>
+      <label class="mode"><input type="radio" name="who" id="whoP" value="P" checked>
+        <div><b>保護者版　約15分</b><span>わが子のスマホに届くグループトークを体験し、家での声かけを選びます。ことば解説つき。</span></div></label>
+      <label class="mode"><input type="radio" name="who" id="whoK" value="K">
+        <div><b>親子で体験する子ども版　約10分</b><span>お子さんが「される側」の3日間を体験します。終わったら、おうちの人と話すための問いが出ます。</span></div></label>
+    </div>
+
+    <div class="field" id="kidPick" hidden>
+      <span class="lb">お話をえらぶ</span>
+      <label class="mode"><input type="radio" name="mode" value="B" checked>
+        <div><b>いじり返し編</b><span>いじられても笑っていじり返す。そのノリが、どこから変わっていくのか。</span></div></label>
+      <label class="mode"><input type="radio" name="mode" value="C">
+        <div><b>陰口グループ編</b><span>表では「ありがとう」。でも自分のいないグループでは…。</span></div></label>
+      <label class="mode"><input type="radio" name="mode" value="A">
+        <div><b>静かな仲間はずれ編</b><span>既読スルー、本人のいないグループ、意味のわからない言葉。</span></div></label>
+      <div class="notice kid-note">
+        <p><b>おうちの人と一緒に始めてください</b></p>
+        <ul>
+          <li>つらくなったら、右上の「やめる」でいつでも終われます。やめてもいいし、やらなくてもいいです。</li>
+          <li>おうちの人は、となりで見守ってください。終わったあとは、答えを正すより、お子さんの話を聞くことを大切に。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="nameIn" id="nameLb">お子さんの名前（体験の中での仮の名前）</label>
       <input type="text" id="nameIn" maxlength="8" value="ゆい" autocomplete="off">
       <span class="meta">本名でなくてかまいません。入力した内容や選んだ答えは、どこにも送信・保存されません。</span>
     </div>
@@ -206,7 +231,7 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
       <ul>
         <li>登場する人物・グループ・あだ名はすべて架空のものです。子どもたちがふだん使う言葉づかいに近づけています。</li>
         <li>つらい記憶がよみがえることがあります。右上の「やめる」でいつでも終われます。</li>
-        <li>このページは保護者向けです。お子さんと一緒に体験する場合は、終わったあとに感じたことを話す時間をとってください。</li>
+        <li>子ども版は、いじめを受けている、または受けたことがあるお子さんにはつらい内容です。やるかどうかは、お子さんの気持ちを聞いてから決めてください。</li>
       </ul>
     </div>
     <p class="meta">制作：ひろこ（<a href="https://japrican.github.io/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café Kurume</a>）　お問い合わせ：<a href="https://lin.ee/R9yyS3u" target="_blank" rel="noopener">公式LINE</a></p>
@@ -272,27 +297,23 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
       <dl class="gloss" id="glList"></dl>
     </div>
 
+    <div class="card" id="homeTalk" hidden>
+      <h2>おうちの人と話してみよう</h2>
+      <p class="meta">話したくないことは、話さなくて大丈夫です。おうちの人は、答えを正そうとせず、最後まで聞いてください。</p>
+      <ol class="steps" id="homeQ"></ol>
+    </div>
+
+    <div class="card" id="helpD"></div>
+
     <div class="cta">
-      <div class="eyebrow">体験したあとに</div>
-      <h2>ひとりで考えこまなくて大丈夫</h2>
-      <p>「うちの子は大丈夫かな」「どう声をかけたらいいんだろう」。そんなモヤモヤを、同じように子育てをしている保護者どうしで話せる場があります。</p>
-      <div class="cta-items">
-        <div class="cta-item">
-          <b>Mama Café Kurume</b>
-          <p>いま困っていることを安心して話しながら、新しいヒントを持ち帰れるおしゃべりの場です。</p>
-          <span class="meta">参加費 1,000円</span>
-        </div>
-        <div class="cta-item">
-          <b>中学生の子をもつママのための講座（全4回）</b>
-          <p>思春期の子どもとの会話、スマホやグループトークとのつきあい方など、いまの困りごとを話しながら一緒に考えます。</p>
-          <span class="meta">参加費 1回1,000円</span>
-        </div>
-      </div>
-      <a class="primary cta-btn" id="ctaLink" href="https://japrican.github.io/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café・講座の日程を見る</a>
+      <div class="eyebrow kid-only" hidden>おうちの人へ</div>
+      <h2>同じ思いの保護者と話せる場所</h2>
+      <p>「うちの子は大丈夫かな」「どう声をかけたらいいんだろう」。そんなモヤモヤを、同じように子育てをしている保護者どうしで話せる場として、久留米で<b>Mama Café</b>をひらいています。いまの困りごとを話しながら、新しいヒントを持ち帰れる小さな集まりです。</p>
+      <a class="ghost cta-btn" id="ctaLink" href="https://japrican.github.io/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café Kurumeについて見る</a>
     </div>
 
     <div class="cta cta2">
-      <div class="eyebrow">子どものスマホ時間に、もうひとつ</div>
+      <div class="eyebrow"><span class="kid-only" hidden>おうちの人へ　</span>子どものスマホ時間に、もうひとつ</div>
       <h2>学びのミカタ</h2>
       <p>中学生向けの学習アプリです。子どもたちが毎日触れているトークのような会話形式で、「なぜそうなるのか」を理解できます。インストール不要で、スマホからすぐに開けます。</p>
       <div class="cta-item">
@@ -302,9 +323,8 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
       <a class="ghost cta-btn" href="https://manabino-mikata.com/portal/" target="_blank" rel="noopener">学びのミカタを見てみる</a>
     </div>
 
-    <div class="card" id="helpD"></div>
 
-    <details>
+    <details id="tqBox">
       <summary id="tqSum">教員・保護者の方へ：ふり返りの問いの例</summary>
       <ul id="tq"></ul>
       <p>選んだ答えはこの画面にだけ表示され、どこにも送信・保存されません。</p>
@@ -332,11 +352,6 @@ const HELP_P = `
   <p class="meta">相談するときは、スクリーンショットを日時がわかる形で保存しておくと、状況が伝わりやすくなります。</p>`;
 document.querySelectorAll('.help').forEach(h=>h.innerHTML=HELP);
 
-document.querySelectorAll('input[name=mode]').forEach(r=>r.addEventListener('change',()=>{
-  const p=document.querySelector('input[name=mode]:checked').value==='P';
-  $('#nameLb').textContent=p?'お子さんの名前（体験の中での仮の名前）':'この体験の中でのあなたの名前';
-  if(p)$('#glIn').checked=true;
-}));
 
 const PEOPLE={'さき':'--p1','けんた':'--p5','みお':'--p3','りく':'--p2','はるな':'--p4','ゆうと':'--p6','あや':'--p7','こうき':'--p8','そうた':'--p4'};
 const FEELS=['楽しかった','ほっとした','悲しい','不安','くやしい','はずかしい','さびしい','こわい','イライラ','モヤモヤ','よくわからない','何も感じたくない'];
@@ -855,6 +870,11 @@ function renderSelf(){
     const f=$('#selfFb2');f.textContent=o.f;f.hidden=false};so.append(b)});
 }
 
+const HOME_Q={
+  B:['どの場面がいちばんいやだった？','「いじり」と「いじめ」の境目って、どこだと思う？','クラスで、似たようなノリを見たことはある？','もし本当に「アンテナ」みたいなあだ名をつけられたら、だれに話せそう？','おうちの人に話したら、どうしてほしい？（すぐ学校に言ってほしい？まず聞いてほしい？）'],
+  C:['表のグループと裏のグループ、どっちの言葉がつらかった？','自分がいないグループで話されているかも、と思ったことはある？','もし裏のグループに自分が入っていたら、どうすると思う？','もし本当にこうなったら、だれに話せそう？','おうちの人に話したら、どうしてほしい？（すぐ学校に言ってほしい？まず聞いてほしい？）'],
+  A:['どの場面がいちばんいやだった？','既読なのに返事がないとき、どんな気持ちになる？','意味のわからない言葉や絵文字で、だれかのことが言われているのを見たことはある？','もし本当にこうなったら、だれに話せそう？','おうちの人に話したら、どうしてほしい？（すぐ学校に言ってほしい？まず聞いてほしい？）']
+};
 /* ========== debrief content ========== */
 const D={
  A:{
@@ -966,6 +986,10 @@ function debrief(){
   if(d.check){const ul=el('ul','checks');d.check.items.forEach(i=>ul.append(el('li',null,i)));
     cc.append(el('h2',null,d.check.title),el('p',null,d.check.intro),ul,el('p','line-note',d.check.note))}
   renderSelf();
+  const kid=st.mode!=='P';
+  $('#homeTalk').hidden=!kid;$('#tqBox').hidden=kid;
+  document.querySelectorAll('.kid-only').forEach(e=>e.hidden=!kid);
+  if(kid){const hq=$('#homeQ');hq.innerHTML='';HOME_Q[st.mode].forEach(q=>hq.append(el('li',null,fill(q))));}
   const ol=$('#steps');ol.innerHTML='';
   d.steps.forEach(([h,b])=>{const li=el('li');li.append(el('b',null,h),el('br'),document.createTextNode(b));ol.append(li)});
   $('#byQ').textContent=fill(d.byQ);
@@ -988,18 +1012,25 @@ function debrief(){
 
 async function start(){
   const n=$('#nameIn').value.trim()||'ひなた';
-  const mode='P';
+  const who=document.querySelector('input[name=who]:checked').value;
+  const mode=who==='P'?'P':document.querySelector('input[name=mode]:checked').value;
   st={name:n,mode,feels:[],ending:null,pending:null,glos:new Map(),last:null,h:null,m:0,cnt:0,gl:false};
   const id=++runId;
-  clear();idleDock();show('pChat');setGl(true);
+  clear();idleDock();show('pChat');setGl(mode==='P');
   const scenes={A:[a1,a2,a3,mirror],B:[b1,b2,b3,mirror],C:[c1,c2,c3,mirror],P:[pIntro,c1,pn1,c2,pn2,c3,pn3,pHome]}[mode];
   try{for(const s of scenes)await s(id);await wait(400,id);debrief();}
   catch(e){if(e!==ABORT)throw e}
 }
 function quit(){runId++;if(st&&st.pending){try{st.pending(ABORT)}catch(e){}}if(st)st.ending=null;
   show('pQuit');setBar('そのｗ、笑ってる？','ひと休み')}
-function home(){runId++;show('pStart');setBar('そのｗ、笑ってる？','保護者のためのグループトーク体験')}
+function home(){runId++;show('pStart');syncWho();setBar('そのｗ、笑ってる？','親子で知るグループトーク体験')}
 
+function syncWho(){const k=document.querySelector('input[name=who]:checked').value==='K';
+  $('#kidPick').hidden=!k;
+  $('#nameLb').textContent=k?'体験の中でのあなたの名前（本名でなくてOK）':'お子さんの名前（体験の中での仮の名前）';
+  if(k&&$('#nameIn').value==='ゆい')$('#nameIn').value='ひなた';
+  if(!k&&$('#nameIn').value==='ひなた')$('#nameIn').value='ゆい';}
+document.querySelectorAll('input[name=who]').forEach(r=>r.addEventListener('change',syncWho));
 $('#startBtn').onclick=start;
 $('#stopBtn').onclick=quit;
 $('#toDebriefBtn').onclick=()=>{if(!st)return home();debrief()};
