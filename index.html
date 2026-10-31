@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:url" content="https://japrican.github.io/sono-w/">
+<meta property="og:image" content="https://japrican.github.io/sono-w/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="そのｗ、笑ってる？">
+<meta property="og:locale" content="ja_JP">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box;height:100%}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+<title>そのｗ、笑ってる？</title>
+<meta name="description" content="中学生のグループトークを、わが子のスマホの画面で15分体験。子どもたちの言葉の意味と、家での声かけがわかる保護者向けページです。">
+<meta property="og:title" content="そのｗ、笑ってる？｜保護者のためのグループトーク体験">
+<meta property="og:description" content="わが子のスマホに届くグループトークを15分体験。「ｗ」「草」「😭」の本当の意味と、子どもが話せる声かけがわかります。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<style>
+/* Layout: one phone-width column, full height. Header / scrolling chat log / bottom dock. Start and debrief are scrollable pages in the same column. */
+:root{
+  --bg:#e7ebf0; --panel:#ffffff; --chat:#dce3eb; --ink:#1c2330; --muted:#5a6576; --line:#c7d0db;
+  --accent:#3d5d88; --accent-ink:#ffffff; --mine:#3d5d88; --mine-ink:#ffffff; --other:#ffffff;
+  --soft:#eef2f7; --sys:#c5cfdb; --sys-ink:#3e4858; --chip-on:#3d5d88; --warn:#8a4b2f;
+  --p1:#b25d7a; --p2:#4d8a73; --p3:#8a6bb5; --p4:#c08a3e; --p5:#4f86b5; --p6:#a0574a; --p7:#5c7c3a; --p8:#6b6f80;
+  --shot:#f6f7f9; --shot-line:#d6dbe2; --ura:#d3cfdb; --gl-bg:#fff4dc; --gl-ink:#6b4a12;
+  --f-display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10141a; --panel:#181e27; --chat:#141a22; --ink:#e5e9f0; --muted:#9aa5b5; --line:#2c3542;
+  --accent:#7d9fd0; --accent-ink:#0f1520; --mine:#4a6b99; --mine-ink:#ffffff; --other:#222a35;
+  --soft:#1e2631; --sys:#2a3340; --sys-ink:#c3ccd8; --chip-on:#7d9fd0; --warn:#e0a07f;
+  --shot:#1b222c; --shot-line:#313b49; --ura:#1d1924; --gl-bg:#3a2f18; --gl-ink:#f2d49a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10141a; --panel:#181e27; --chat:#141a22; --ink:#e5e9f0; --muted:#9aa5b5; --line:#2c3542;
+  --accent:#7d9fd0; --accent-ink:#0f1520; --mine:#4a6b99; --mine-ink:#ffffff; --other:#222a35;
+  --soft:#1e2631; --sys:#2a3340; --sys-ink:#c3ccd8; --chip-on:#7d9fd0; --warn:#e0a07f;
+  --shot:#1b222c; --shot-line:#313b49; --ura:#1d1924; --gl-bg:#3a2f18; --gl-ink:#f2d49a; color-scheme:dark}
+
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.app{max-width:520px;height:100%;margin:0 auto;display:flex;flex-direction:column;background:var(--panel);
+  border-left:1px solid var(--line);border-right:1px solid var(--line)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+.bar .t{flex:1;min-width:0}
+.bar .t b{display:block;font-family:var(--f-display);font-size:18px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t small{color:var(--muted);font-size:13px}
+.stop{border:1.5px solid var(--warn);color:var(--warn);background:transparent;border-radius:999px;padding:6px 16px;font-size:15px;font-weight:700;white-space:nowrap}
+.gtog{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700;white-space:nowrap;color:var(--muted)}
+.gtog[aria-pressed="true"]{background:var(--gl-bg);color:var(--gl-ink);border-color:var(--gl-bg)}
+
+.page{flex:1;overflow-y:auto;padding:24px 20px 32px;display:flex;flex-direction:column;gap:18px}
+.page h1{font-family:var(--f-display);font-size:32px;line-height:1.25;margin:0;text-wrap:balance}
+.page h2{font-family:var(--f-display);font-size:21px;margin:0 0 6px;text-wrap:balance}
+.eyebrow{font-size:14px;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.lead{margin:0;color:var(--muted)}
+.notice{background:var(--soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.notice p{margin:0}
+.notice ul{margin:0;padding-left:1.2em}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field .lb{font-weight:700;font-size:16px}
+.field input[type=text]{font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink)}
+.mode{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.mode:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.mode input{margin-top:6px;accent-color:var(--accent)}
+.mode b{display:block}
+.mode span{font-size:15px;color:var(--muted)}
+.mode.parent{border-style:dashed}
+.ck{display:flex;gap:10px;align-items:flex-start;font-size:16px;cursor:pointer}
+.ck input{margin-top:5px;accent-color:var(--accent)}
+.primary{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:15px;font-weight:700;font-size:18px}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:12px;font-weight:700}
+.meta{font-size:14px;color:var(--muted)}
+details{border-top:1px solid var(--line);padding-top:12px}
+summary{font-weight:700;cursor:pointer}
+details p,details li{font-size:16px}
+
+.log{flex:1;overflow-y:auto;background:var(--chat);padding:14px 12px 20px;display:flex;flex-direction:column;gap:6px}
+.log.ura{background:var(--ura)}
+.log.home{background:var(--soft)}
+.sys{align-self:center;background:var(--sys);color:var(--sys-ink);font-size:14px;padding:3px 12px;border-radius:999px;text-align:center;max-width:90%;margin-block:4px}
+.row{display:flex;gap:8px;align-items:flex-start;max-width:88%}
+.row.in{animation:pop .18s ease-out}
+@keyframes pop{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+.av{flex:0 0 36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;font-family:var(--f-display)}
+.row.cont .av{visibility:hidden}
+.row.cont .who{display:none}
+.who{font-size:13px;color:var(--muted);margin-bottom:1px}
+.line{display:flex;align-items:flex-end;gap:5px}
+.bub{background:var(--other);border-radius:4px 18px 18px 18px;padding:8px 14px;font-size:17px;word-break:break-word;min-width:0}
+.tm{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.3}
+.row.me{align-self:flex-end;flex-direction:row-reverse;align-items:flex-end}
+.row.me .line{flex-direction:row-reverse}
+.row.me .bub{background:var(--mine);color:var(--mine-ink);border-radius:16px 4px 16px 16px}
+.meta2{display:flex;flex-direction:column;align-items:flex-end}
+.typing .bub{color:var(--muted);letter-spacing:3px}
+.big{font-size:34px;line-height:1.2;background:transparent!important;padding:0}
+.gl{display:none;margin-top:3px;font-size:14px;line-height:1.5;background:var(--gl-bg);color:var(--gl-ink);border-radius:6px;padding:2px 8px}
+.showgl .gl{display:block}
+.shot{background:var(--shot);border:1px solid var(--shot-line);border-radius:10px;padding:8px 10px;margin-top:6px;font-size:15px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+.shot .h{font-size:13px;color:var(--muted);border-bottom:1px solid var(--shot-line);padding-bottom:4px}
+.shot b{font-weight:700}
+
+.dock{border-top:1px solid var(--line);background:var(--panel);padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;max-height:55%;overflow-y:auto}
+.dock .q{font-size:16px;color:var(--muted);font-weight:700}
+.opt{text-align:left;background:var(--soft);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:500}
+.opt:hover{border-color:var(--accent)}
+.fake-input{color:var(--muted);font-size:15px;background:var(--soft);border-radius:999px;padding:8px 14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 16px;font-size:16px}
+.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--chip-on);color:var(--accent-ink);font-weight:700}
+.dock .acts{display:flex;gap:8px}
+.dock .acts button{flex:1}
+.pnote{display:flex;flex-direction:column;gap:4px}
+.pnote p{margin:0;font-size:16px}
+
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0}
+.tag{display:inline-block;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px;margin:2px 4px 2px 0}
+.tel{font-family:var(--f-display);font-size:26px;font-variant-numeric:tabular-nums;user-select:all;letter-spacing:.02em}
+.fb{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:16px}
+ol.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.checks li{display:flex;gap:10px;align-items:baseline}
+.checks li::before{content:"□";color:var(--accent);font-weight:700}
+#selfList .chip{text-align:left;border-radius:12px;padding:8px 14px}
+.line-note{border-left:3px solid var(--warn);padding-left:10px;font-weight:700}
+dl.gloss{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:16px}
+dl.gloss dt{font-weight:700;white-space:nowrap}
+dl.gloss dd{margin:0;min-width:0}
+
+.hero-t{font-size:46px!important;line-height:1.15!important;letter-spacing:.01em}
+.prev{background:var(--chat);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.prev-h{font-family:var(--f-display);font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:8px;padding:0 2px 4px}
+.prev-h span{font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.pv{display:flex;gap:8px;align-items:flex-start}
+.pv i{flex:0 0 32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:700;font-size:14px;font-family:var(--f-display)}
+.pv div{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.pv b{font-weight:400;background:var(--other);border-radius:4px 16px 16px 16px;padding:7px 12px;font-size:16px}
+.pv em{font-style:normal;font-size:13px;background:var(--gl-bg);color:var(--gl-ink);border-radius:6px;padding:1px 8px}
+.cta{background:var(--soft);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:12px}
+.cta p{margin:0}
+.cta-items{display:flex;flex-direction:column;gap:10px}
+.cta-item{background:var(--panel);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.cta-item b{font-family:var(--f-display);font-size:18px}
+.cta-item p{font-size:16px}
+.cta-btn{display:block;text-align:center;text-decoration:none}
+.cta2{background:transparent;border:1px solid var(--line)}
+.cta2 .cta-item{background:var(--soft)}
+a.ghost{color:var(--accent);border-color:var(--accent)}
+ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion: reduce){.row.in{animation:none}}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header class="bar">
+    <div class="t"><b id="barTitle">そのｗ、笑ってる？</b><small id="barSub">保護者のためのグループトーク体験</small></div>
+    <button class="gtog" id="glBtn" aria-pressed="false" hidden>ことば解説</button>
+    <button class="stop" id="stopBtn" hidden>やめる</button>
+  </header>
+
+  <!-- START -->
+  <section class="page" id="pStart">
+    <div class="eyebrow">保護者のための体験ページ　約15分</div>
+    <h1 class="hero-t">そのｗ、<br>笑ってる？</h1>
+    <p class="lead">中学生のわが子のスマホに、ある3日間に届くグループトークを体験します。表のグループで流れる「ｗ」と、本人のいないグループで流れる「ｗ」。そのあとは、親として家での声かけを選びます。</p>
+
+    <div class="prev" aria-hidden="true">
+      <div class="prev-h">2年3組 みんな<span>メンバー 32人</span></div>
+      <div class="pv"><i style="background:var(--p2)">り</i><div><b>てか今日のゆいの寝ぐせガチえぐかったｗｗｗ</b><em>ガチ＝本当に　えぐい＝すごい、ひどい</em></div></div>
+      <div class="pv"><i style="background:var(--p5)">け</i><div><b>アンテナ立ってた😭</b><em>😭＝泣いているのではなく、大笑いの意味</em></div></div>
+      <div class="pv"><i style="background:var(--p3)">み</i><div><b>草</b><em>草＝笑</em></div></div>
+    </div>
+
+    <div class="card">
+      <h2>体験してわかること</h2>
+      <ul class="learn">
+        <li>グループトークが、数秒でどれだけ流れていくか</li>
+        <li>「ｗ」「草」「😭」「鍵垢」など、子どもたちの言葉の意味</li>
+        <li>スマホを見せてもらっても見えない会話があること</li>
+        <li>子どもが「話してもいい」と思える声かけ</li>
+      </ul>
+    </div>
+
+    <div class="field">
+      <label for="nameIn">お子さんの名前（体験の中での仮の名前）</label>
+      <input type="text" id="nameIn" maxlength="8" value="ゆい" autocomplete="off">
+      <span class="meta">本名でなくてかまいません。入力した内容や選んだ答えは、どこにも送信・保存されません。</span>
+    </div>
+    <button class="primary" id="startBtn">体験をはじめる</button>
+
+    <div class="notice">
+      <p><b>はじめる前に</b></p>
+      <ul>
+        <li>登場する人物・グループ・あだ名はすべて架空のものです。子どもたちがふだん使う言葉づかいに近づけています。</li>
+        <li>つらい記憶がよみがえることがあります。右上の「やめる」でいつでも終われます。</li>
+        <li>このページは保護者向けです。お子さんと一緒に体験する場合は、終わったあとに感じたことを話す時間をとってください。</li>
+      </ul>
+    </div>
+    <p class="meta">制作：ひろこ（<a href="https://japrican.github.io/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café Kurume</a>）　お問い合わせ：<a href="https://lin.ee/R9yyS3u" target="_blank" rel="noopener">公式LINE</a></p>
+  </section>
+
+  <!-- CHAT -->
+  <section id="pChat" hidden style="flex:1;flex-direction:column;min-height:0">
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="dock" id="dock"><div class="fake-input">メッセージを入力</div></div>
+  </section>
+
+  <!-- QUIT -->
+  <section class="page" id="pQuit" hidden>
+    <div class="eyebrow">ここでやめても大丈夫</div>
+    <h1>ひと休みしよう</h1>
+    <p class="lead">画面から目をはなして、ゆっくり3回、深呼吸してみてください。いま感じている気持ちは、ちゃんと意味のあるものです。</p>
+    <div class="card help"></div>
+    <button class="primary" id="toDebriefBtn">ふり返りを見る</button>
+    <button class="ghost" id="restartBtn1">さいしょの画面にもどる</button>
+  </section>
+
+  <!-- DEBRIEF -->
+  <section class="page" id="pDebrief" hidden>
+    <div class="eyebrow">体験のふり返り</div>
+    <h1 id="endTitle">おつかれさまでした</h1>
+    <p class="lead" id="endLead"></p>
+
+    <div class="card">
+      <h2>あなたが感じた気持ち</h2>
+      <div id="feelLog"></div>
+    </div>
+
+    <div class="card" id="checkCard" hidden></div>
+
+    <div class="card">
+      <h2>この3日間で起きていたこと</h2>
+      <ol class="steps" id="steps"></ol>
+    </div>
+
+    <div class="card" id="selfCard" hidden>
+      <h2>ふだんの自分の会話をふり返ろう</h2>
+      <p>今度は、送る側としての自分を思い出してみてください。あてはまるものはありますか。だれにも見せないので、正直に。</p>
+      <div class="chips" id="selfList" style="flex-direction:column;align-items:stretch"></div>
+      <button class="primary" id="selfGo">ふり返る</button>
+      <div class="fb" id="selfFb" hidden></div>
+      <div id="selfNext" hidden style="display:flex;flex-direction:column;gap:8px">
+        <p><b>思いうかぶ人はいますか。その人に、何ができそうですか。</b></p>
+        <div style="display:flex;flex-direction:column;gap:8px" id="selfOpts"></div>
+        <div class="fb" id="selfFb2" hidden></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>もしあなたが「見ている側」だったら？</h2>
+      <p id="byQ"></p>
+      <div style="display:flex;flex-direction:column;gap:8px" id="byOpts"></div>
+      <div class="fb" id="byFb" hidden></div>
+    </div>
+
+    <div class="card" id="glCard" hidden>
+      <h2>この会話に出てきたことば</h2>
+      <p class="meta">大人には伝わりにくい言葉も、子どもたちにとってはふだんの言葉です。意味や使われ方は、学校や地域、時期によって変わります。</p>
+      <dl class="gloss" id="glList"></dl>
+    </div>
+
+    <div class="cta">
+      <div class="eyebrow">体験したあとに</div>
+      <h2>ひとりで考えこまなくて大丈夫</h2>
+      <p>「うちの子は大丈夫かな」「どう声をかけたらいいんだろう」。そんなモヤモヤを、同じように子育てをしている保護者どうしで話せる場があります。</p>
+      <div class="cta-items">
+        <div class="cta-item">
+          <b>Mama Café Kurume</b>
+          <p>いま困っていることを安心して話しながら、新しいヒントを持ち帰れるおしゃべりの場です。</p>
+          <span class="meta">参加費 1,000円</span>
+        </div>
+        <div class="cta-item">
+          <b>中学生の子をもつママのための講座（全4回）</b>
+          <p>思春期の子どもとの会話、スマホやグループトークとのつきあい方など、いまの困りごとを話しながら一緒に考えます。</p>
+          <span class="meta">参加費 1回1,000円</span>
+        </div>
+      </div>
+      <a class="primary cta-btn" id="ctaLink" href="https://japrican.github.io/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café・講座の日程を見る</a>
+    </div>
+
+    <div class="cta cta2">
+      <div class="eyebrow">子どものスマホ時間に、もうひとつ</div>
+      <h2>学びのミカタ</h2>
+      <p>中学生向けの学習アプリです。子どもたちが毎日触れているトークのような会話形式で、「なぜそうなるのか」を理解できます。インストール不要で、スマホからすぐに開けます。</p>
+      <div class="cta-item">
+        <b>歴史・国語・理科・英語・数学・社会</b>
+        <p>6教科・200以上のレッスン。全教科を7日間無料で試せます。</p>
+      </div>
+      <a class="ghost cta-btn" href="https://manabino-mikata.com/portal/" target="_blank" rel="noopener">学びのミカタを見てみる</a>
+    </div>
+
+    <div class="card" id="helpD"></div>
+
+    <details>
+      <summary id="tqSum">教員・保護者の方へ：ふり返りの問いの例</summary>
+      <ul id="tq"></ul>
+      <p>選んだ答えはこの画面にだけ表示され、どこにも送信・保存されません。</p>
+    </details>
+    <button class="primary" id="restartBtn2">さいしょの画面にもどる</button>
+  </section>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const HELP = `
+  <h2>話せる場所があります</h2>
+  <p>まずは家の人、担任の先生、保健室の先生、スクールカウンセラーなど、話しやすい大人に。自分もいじったことがあっても、相談していいんです。</p>
+  <p class="meta">24時間子供SOSダイヤル（夜も休日もつながります）</p>
+  <div class="tel">0120-0-78310</div>
+  <p class="meta">チャイルドライン（18歳までの子ども専用）</p>
+  <div class="tel">0120-99-7777</div>
+  <p class="meta">電話番号は長押しでコピーできます。</p>`;
+const HELP_P = `
+  <h2>保護者の方の相談先</h2>
+  <p>まずは担任の先生、学年主任、スクールカウンセラーへ。お住まいの自治体の教育相談窓口も利用できます。お子さんが「言わないで」と言うときは、「勝手には動かない、一緒に決める」と約束したうえで、相談の形を考えましょう。</p>
+  <p class="meta">24時間子供SOSダイヤル（保護者からの相談も受け付けています）</p>
+  <div class="tel">0120-0-78310</div>
+  <p class="meta">相談するときは、スクリーンショットを日時がわかる形で保存しておくと、状況が伝わりやすくなります。</p>`;
+document.querySelectorAll('.help').forEach(h=>h.innerHTML=HELP);
+
+document.querySelectorAll('input[name=mode]').forEach(r=>r.addEventListener('change',()=>{
+  const p=document.querySelector('input[name=mode]:checked').value==='P';
+  $('#nameLb').textContent=p?'お子さんの名前（体験の中での仮の名前）':'この体験の中でのあなたの名前';
+  if(p)$('#glIn').checked=true;
+}));
+
+const PEOPLE={'さき':'--p1','けんた':'--p5','みお':'--p3','りく':'--p2','はるな':'--p4','ゆうと':'--p6','あや':'--p7','こうき':'--p8','そうた':'--p4'};
+const FEELS=['楽しかった','ほっとした','悲しい','不安','くやしい','はずかしい','さびしい','こわい','イライラ','モヤモヤ','よくわからない','何も感じたくない'];
+let st, runId=0;
+const ABORT={};
+
+function show(id){['pStart','pChat','pQuit','pDebrief'].forEach(p=>$('#'+p).hidden=(p!==id));
+  $('#stopBtn').hidden=(id!=='pChat');$('#glBtn').hidden=(id!=='pChat');
+  $('#pChat').style.display=(id==='pChat')?'flex':''}
+function setBar(t,s){$('#barTitle').textContent=t;$('#barSub').textContent=s||''}
+function setGl(on){st.gl=on;$('#log').classList.toggle('showgl',on);$('#glBtn').setAttribute('aria-pressed',on)}
+$('#glBtn').onclick=()=>{if(st)setGl(!st.gl)};
+
+function wait(ms,id){return new Promise((res,rej)=>setTimeout(()=>id===runId?res():rej(ABORT),ms))}
+function scroll(){const l=$('#log');l.scrollTop=l.scrollHeight}
+function add(e){$('#log').appendChild(e);scroll();return e}
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function fill(t){return t.replaceAll('{n}',st.name)}
+
+/* clock: each message shows a time; many messages share one minute */
+function clock(h,m){st.h=h;st.m=m;st.cnt=0}
+function now(){st.cnt++;if(st.cnt>5){st.cnt=0;st.m++;if(st.m>59){st.m=0;st.h=(st.h+1)%24}}
+  return st.h+':'+String(st.m).padStart(2,'0')}
+function jump(min){st.m+=min;while(st.m>59){st.m-=60;st.h=(st.h+1)%24}st.cnt=0}
+
+function logGloss(g){if(!g)return;g.split('／').forEach(x=>{const i=x.indexOf('＝');if(i>0)st.glos.set(x.slice(0,i),x.slice(i+1))})}
+async function sys(t,id){await wait(400,id);add(el('div','sys',fill(t)));st.last=null}
+function avatar(name){const a=el('div','av',name[0]);a.style.background=`var(${PEOPLE[name]||'--p5'})`;return a}
+function bubble(name,text,opt={}){
+  name=fill(name);
+  const r=el('div','row in');if(st.last===name)r.classList.add('cont');st.last=name;
+  r.append(avatar(name));
+  const col=el('div');col.style.minWidth='0';col.append(el('div','who',name));
+  const line=el('div','line');
+  const b=el('div','bub'+(opt.big?' big':''),fill(text));line.append(b,el('span','tm',st.h!=null?now():''));
+  col.append(line);
+  if(opt.shot){const s=el('div','shot');s.append(el('div','h',fill(opt.shot.head)));
+    opt.shot.rows.forEach(([w,t])=>{const p=el('div');p.append(el('b',null,fill(w)+'：'),document.createTextNode(fill(t)));s.append(p)});b.append(s)}
+  if(opt.g){col.append(el('div','gl',opt.g.replaceAll('／','　')));logGloss(opt.g)}
+  r.append(col);add(r);return r;
+}
+/* one message with a typing indicator (1:1 / slow moments) */
+async function say(name,text,id,opt={}){
+  const tp=el('div','row typing');tp.append(avatar(fill(name)),el('div','bub','•••'));
+  await wait(300,id);add(tp);
+  await wait(Math.min(3800,600+fill(text).length*120),id);tp.remove();
+  return bubble(name,text,opt);
+}
+/* rapid group messages: rows = [name,text,opt?] */
+async function burst(id,rows,speed=1){
+  for(const [n,t,o] of rows){
+    /* 打つ時間：スタンプ・絵文字や「草」はすぐ、文章は文字数に応じて長く */
+    const len=(o&&o.big)?0:fill(t).length;
+    const ms=len<=2?280+Math.random()*350:Math.min(3800,350+len*115)+Math.random()*400;
+    await wait(ms*speed,id);
+    bubble(n,t,o||{});
+  }
+}
+async function me(text,read,id){
+  await wait(250,id);
+  const r=el('div','row me in');const m=el('div','meta2');const rd=el('span','tm','');m.append(rd,el('span','tm',st.h!=null?now():''));
+  r.append(el('div','line'));r.firstChild.append(el('div','bub',fill(text)),m);add(r);st.last='__me';
+  if(read){for(const n of [3,9,read]){await wait(350,id);rd.textContent='既読 '+n}}
+}
+function idleDock(text){const d=$('#dock');d.innerHTML='';d.append(el('div','fake-input',text||'メッセージを入力'))}
+function choose(q,opts,id){return new Promise((res,rej)=>{
+  if(id!==runId)return rej(ABORT);
+  const d=$('#dock');d.innerHTML='';d.append(el('div','q',q));
+  opts.forEach(o=>{const b=el('button','opt',fill(o.t));b.onclick=()=>{idleDock();res(o)};d.append(b)});
+  d.querySelector('.opt').focus({preventScroll:true});
+  st.pending=rej;
+})}
+function feel(scene,id){return new Promise((res,rej)=>{
+  if(id!==runId)return rej(ABORT);
+  const d=$('#dock');d.innerHTML='';d.append(el('div','q','いま、どんな気持ち？（いくつ選んでもOK）'));
+  const box=el('div','chips');const sel=new Set();
+  FEELS.forEach(f=>{const c=el('button','chip',f);c.setAttribute('aria-pressed','false');
+    c.onclick=()=>{sel.has(f)?sel.delete(f):sel.add(f);c.setAttribute('aria-pressed',sel.has(f))};box.append(c)});
+  d.append(box);
+  const acts=el('div','acts');const skip=el('button','ghost','えらばない');const go=el('button','primary','つぎへ');
+  skip.onclick=()=>{st.feels.push([scene,[]]);idleDock();res()};
+  go.onclick=()=>{st.feels.push([scene,[...sel]]);idleDock();res()};
+  acts.append(skip,go);d.append(acts);st.pending=rej;
+})}
+function note(title,body,id){return new Promise((res,rej)=>{
+  if(id!==runId)return rej(ABORT);
+  const d=$('#dock');d.innerHTML='';
+  const box=el('div','pnote');box.append(el('div','q',title));
+  [].concat(body).forEach(t=>box.append(el('p',null,fill(t))));
+  const go=el('button','primary','つぎへ');go.onclick=()=>{idleDock();res()};
+  d.append(box,go);go.focus({preventScroll:true});st.pending=rej;
+})}
+const GROUP=()=>setBar('2年3組 みんな','メンバー 32人');
+const clear=()=>{const l=$('#log');l.innerHTML='';l.classList.remove('ura','home');st.last=null};
+
+/* ========== いじり返し編 ========== */
+async function b1(id){
+  clear();GROUP();clock(19,40);
+  await sys('10月14日（火）',id);
+  await burst(id,[
+    ['ゆうと','明日の数学の小テストってどこから？'],
+    ['あや','p48から'],['あや','たぶん'],
+    ['こうき','ﾏ?',{g:'ﾏ?＝「マジ？」の短縮。本当？という意味'}],
+    ['こうき','終わった'],
+    ['ゆうと','あざ',{g:'あざ＝ありがとう（「あざす」の短縮）'}],
+    ['けんた','とりま寝る',{g:'とりま＝とりあえず、まあ'}],
+    ['りく','てか今日の{n}の寝ぐせガチえぐかったｗｗｗ',{g:'ガチ＝本当に、本気で／えぐい＝すごい、ひどい（良い意味にも悪い意味にも使う）'}],
+    ['けんた','それな',{g:'それな＝わかる、同意'}],
+    ['けんた','アンテナ立ってた😭',{g:'😭＝泣いているのではなく「笑いすぎて泣ける」という意味で使われることが多い'}],
+    ['みお','草',{g:'草＝笑（「ｗ」が草に見えることから）'}],
+    ['さき','見たかったｗ'],
+    ['こうき','写真ないん？'],
+    ['りく','撮っとけばよかった〜'],
+    ['あや','📡',{big:true}],
+  ]);
+  const c=await choose('グループの全員が見ています。どう返す？',[
+    {t:'りくこそ朝ずっと声裏返っとったやんｗ',v:'back'},
+    {t:'それな、鏡見てなかったｗ',v:'go'},
+    {t:'やめてよ〜',v:'stop'}],id);
+  st.b1=c.v;
+  await me(c.t,24,id);
+  if(c.v==='back') await burst(id,[
+    ['けんた','カウンターきたｗｗ'],['さき','{n}つよｗ'],['りく','おい😂'],
+    ['ゆうと','りく負けてて草'],['あや','優勝🏆',{g:'優勝＝最高、一番おもしろい'}],['こうき','ｗｗｗｗ']]);
+  else if(c.v==='go') await burst(id,[
+    ['みお','自分で言うんかいｗ'],['けんた','{n}おもろ'],['こうき','好感度上がった'],['さき','ｗｗ']]);
+  else await burst(id,[
+    ['りく','えー、ほめてるのにｗ'],['けんた','かわいいアンテナじゃんｗ'],['こうき','アンテナｗｗ'],['みお','📡',{big:true}]]);
+  await burst(id,[['あや','てか小テストｗ'],['ゆうと','それはそう',{g:'それはそう＝たしかに'}],['こうき','おつ',{g:'おつ＝おつかれ'}]]);
+  await feel('1日目',id);
+}
+async function b2(id){
+  clear();GROUP();clock(20,15);
+  await sys('10月15日（水）',id);
+  await burst(id,[
+    ['さき','今日から{n}のこと「アンテナ」って呼ぶことにしたｗ'],
+    ['りく','📡',{big:true}],['けんた','📡📡',{big:true}],
+    ['こうき','アンテナ受信してる？'],['みお','電波わるそうｗ'],['ゆうと','圏外ｗｗ'],
+    ['あや','草'],['けんた','アンテナ〜返事して〜'],['けんた','おーい'],
+  ]);
+  await wait(1500,id);
+  await burst(id,[
+    ['りく','既読ついてるのに無視はえぐい',{g:'既読無視＝読んだのに返信しないこと。責める言葉として使われる'}],
+    ['さき','未読無視よりマシｗ',{g:'未読無視＝通知を見ていても開かずに無視すること'}],
+    ['こうき','アンテナ〜'],
+  ]);
+  const c=await choose('どう返す？',[
+    {t:'うるさい、けんたも昨日ろうかでコケとったくせにｗ',v:'back'},
+    {t:'そのあだ名ちょっとやだ',v:'stop'},
+    {t:'（返信しない）',v:'none'}],id);
+  if(c.v==='back'){
+    await me(c.t,27,id);await wait(900,id);
+    await burst(id,[['けんた','え、ムキになってる？ｗ'],['さき','アンテナ怒った📡'],['こうき','こわｗ'],
+      ['りく','Jkやん',{g:'Jk＝冗談（joke）'}],['みお','冗談通じんのしんど',{g:'しんど＝しんどい、めんどう'}],['あや','…']]);
+  }else if(c.v==='stop'){
+    await me(c.t,27,id);await wait(1600,id);
+    await burst(id,[['りく','ノリ悪〜',{g:'ノリ悪＝場の空気に合わせない、という非難の言葉'}],['みお','え、冗談やん'],
+      ['こうき','空気…'],['さき','アンテナってかわいいのに'],['ゆうと','しらけた']]);
+  }else{
+    await wait(2500,id);
+    await burst(id,[['けんた','アンテナ圏外です'],['りく','📡❌',{big:true}],['こうき','既読だけ増えてくｗ'],
+      ['みお','通知切ってそう'],['さき','スルーとかひど〜']]);
+  }
+  await feel('2日目',id);
+}
+async function b3(id){
+  clear();GROUP();clock(21,5);
+  await sys('10月16日（木）',id);
+  await burst(id,[
+    ['みお','今日のそうたの発表やばくなかった？ｗ'],
+    ['りく','え、えっと、ぼ、ぼくは…ｗｗ'],
+    ['けんた','似てる😭'],['こうき','再現度高すぎ'],
+    ['ゆうと','動画撮った人おらん？'],['あや','さすがにそれは'],
+    ['みお','ｗｗｗ'],
+    ['さき','{n}もなんか言ってｗ'],['さき','アンテナなら得意やろ'],
+    ['こうき','アンテナ出番'],['りく','📡',{big:true}],
+  ]);
+  const c=await choose('グループには、そうたもいます。あなたは？',[
+    {t:'（乗っかって、そうたのまねをする）',v:'join'},
+    {t:'それよりさ、明日の小テストやばくない？',v:'change'},
+    {t:'それはやめとこ',v:'stop'},
+    {t:'（だまる）',v:'quiet'}],id);
+  st.b3=c.v;
+  if(c.v==='join'){
+    await me('え、えっと…ぼ、ぼくも発表しますっｗ',29,id);
+    await burst(id,[['りく','うますぎ'],['さき','アンテナ天才'],['こうき','優勝'],['けんた','草']]);
+    await wait(1500,id);
+    await sys('そうたがグループを退会しました',id);
+    await burst(id,[['ゆうと','あ、抜けた'],['みお','え、見とったん？'],['りく','知らんけど',{g:'知らんけど＝言ったことの責任を軽くする言葉'}]]);
+  }else if(c.v==='change'){
+    await me(c.t,29,id);
+    await burst(id,[['けんた','まじめか'],['みお','え〜'],['こうき','話そらし下手😭'],['りく','…まあ小テストはえぐい']]);
+  }else if(c.v==='stop'){
+    await me(c.t,29,id);await wait(1300,id);
+    await burst(id,[['さき','え、{n}が言う？ｗ']]);
+    if(st.b1==='back') await say('けんた','これ忘れた？',id,{shot:{head:'10月14日（火）のトーク',rows:[['{n}','りくこそ朝ずっと声裏返っとったやんｗ']]}});
+    else await burst(id,[['けんた','{n}だっていつも笑っとったやん']]);
+    await burst(id,[['みお','おあいこやん'],['こうき','ブーメラン',{g:'ブーメラン＝自分が言ったことが自分に返ってくる'}],['りく','アンテナに言われたくないｗ']]);
+  }else{
+    await wait(2500,id);
+    await burst(id,[['りく','アンテナ受信できず'],['こうき','既読だけ増えてく']]);
+    await wait(1200,id);
+    await sys('そうたがグループを退会しました',id);
+    await burst(id,[['ゆうと','あ'],['みお','抜けたｗ']]);
+  }
+  await feel('3日目',id);
+  const e=await choose('このあと、あなたはどうする？',[
+    {t:'家の人に話す',v:'home'},{t:'先生やスクールカウンセラーに話す',v:'school'},
+    {t:'そうたに個別でメッセージを送る',v:'peer'},{t:'だれにも言わない',v:'none'}],id);
+  st.ending=e.v;
+}
+
+/* ========== 陰口グループ編 ========== */
+function front(){clear();GROUP();idleDock()}
+async function ura(id,t){clear();$('#log').classList.add('ura');
+  setBar(fill('2-3（{n}以外）'),'メンバー 6人｜あなたは参加していません');
+  idleDock('あなたはこのグループに参加していません');
+  await sys(t||'同じころ、あなたのいないグループでは…',id)}
+async function c1(id){
+  front();clock(19,2);
+  await sys('この体験では、本当は見えないはずの「あなたのいないグループ」ものぞくことができます',id);
+  await sys('10月14日（火）',id);
+  await burst(id,[
+    ['さき','文化祭の看板、絵うまい人おらん？🙏'],
+    ['けんた','おれ無理〜'],['こうき','棒人間しか描けん'],
+    ['ゆうと','こうきの棒人間は芸術'],['あや','草'],['みお','ｗｗ'],
+  ]);
+  await choose('絵を描くのは好きです。返信してみよう',[{t:'描くの好きやけん、やってみよっか？'}],id);
+  await me('描くの好きやけん、やってみよっか？',22,id);
+  await burst(id,[['さき','え！ありがと〜神🙏',{g:'神＝すごい、最高'}],['みお','{n}さすが！'],['あや','たすかる〜'],['けんた','あざす']]);
+  await wait(2200,id);
+  await ura(id,'19:03　同じころ、あなたのいないグループでは…');
+  clock(19,3);
+  await burst(id,[
+    ['みお','看板{n}がやるってｗ'],['りく','でしゃばり出た'],['こうき','自分から行くのえぐ'],
+    ['さき','「神🙏」って送っといたｗ'],['けんた','こわｗ'],
+    ['あや','さきの切り替え速すぎて草'],['みお','表と裏で別人ｗ'],
+  ]);
+  await wait(1400,id);
+  await feel('1日目',id);
+}
+async function c2(id){
+  front();clock(20,10);
+  await sys('10月15日（水）',id);
+  await burst(id,[['りく','看板の下書き見たよ、いい感じやん'],['こうき','うまっ']]);
+  const c=await choose('どう返す？',[{t:'ありがとう！明日色ぬるね'},{t:'ほんと？うれし〜'}],id);
+  await me(c.t,18,id);
+  await burst(id,[['けんた','👍',{big:true,g:'👍だけの返信＝そっけない、距離をおいた反応として受け取られることもある'}]]);
+  await wait(2200,id);
+  await ura(id,'20:11　同じころ、あなたのいないグループでは…');
+  clock(20,11);
+  await burst(id,[
+    ['りく','正直びみょくない？ｗ',{g:'びみょ＝微妙'}],
+    ['みお','ほめとけば勝手にやってくれるけん'],
+    ['さき','それな、便利〜'],['あや','便利は草'],['こうき','言い方ｗ'],
+    ['けんた','{n}って何言ってもニコニコしてるよね'],
+    ['みお','それがうざいんよ'],
+    ['さき','わかりみ',{g:'わかりみ＝わかる'}],
+    ['りく','ストーリーにのせよっかな、下書きｗ',{g:'ストーリー＝インスタグラムの24時間で消える投稿'}],
+    ['あや','それはやめとき'],
+    ['みお','鍵垢ならいける',{g:'鍵垢＝承認した人しか見られない非公開アカウント'}],
+    ['こうき','ｗｗｗ'],
+  ]);
+  await wait(1400,id);
+  await feel('2日目',id);
+}
+async function c3(id){
+  front();clock(21,30);
+  await sys('10月16日（木）',id);
+  await burst(id,[
+    ['さき','看板完成おめでと〜🎉🎉'],['あや','えぐい！'],['こうき','プロやん'],
+    ['みお','まじ{n}のおかげ！'],['ゆうと','神'],['りく','おつ〜'],
+  ]);
+  await wait(1500,id);
+  const miss=bubble('みお','{n}今日もまじうざかったｗ ニコニコしすぎてキツ');
+  await wait(2800,id);
+  const s=el('div','sys','みおがメッセージの送信を取り消しました');miss.replaceWith(s);st.last=null;
+  await burst(id,[['みお','ごめん間違えたｗ'],['さき','みおｗ'],['こうき','？？']]);
+  await wait(1200,id);
+  const c=await choose('いまのメッセージ、見えてしまいました。あなたは？',[
+    {t:'いまの、なに？',v:'ask'},{t:'だいじょうぶだよｗ',v:'smile'},{t:'（何も送らない）',v:'none'}],id);
+  if(c.v==='ask'){await me(c.t,25,id);await burst(id,[['みお','なんでもない！別の話〜'],['さき','気にせんで〜'],['りく','てか明日の時間割なに']]);}
+  else if(c.v==='smile'){await me(c.t,25,id);await burst(id,[['みお','ほんとごめん〜🙏'],['あや','…']]);}
+  else{await wait(2500,id);await burst(id,[['ゆうと','てか明日の時間割なに'],['あや','5時間目体育']]);}
+  await wait(1800,id);
+  await ura(id,'21:31　同じころ、あなたのいないグループでは…');
+  clock(21,31);
+  await burst(id,[
+    ['みお','やば、本グルに送った',{g:'本グル＝クラス全員が入っている、本来のグループ'}],
+    ['さき','ｗｗｗ'],['りく','見られた？'],['こうき','既読30はついとる'],
+    ['あや','終わった'],['けんた','取り消したしセーフやろ'],
+    ['みお','スクショされとったらどうしよ'],
+    ['りく','てかもうバレてもよくない？ｗ'],['さき','それな'],
+  ]);
+  await wait(1400,id);
+  await feel('3日目',id);
+  if(st.mode==='P')return;
+  const e=await choose('このあと、あなたはどうする？',[
+    {t:'家の人に話す',v:'home'},{t:'先生やスクールカウンセラーに話す',v:'school'},
+    {t:'信頼できる友だちに話す',v:'peer'},{t:'何も知らないふりをする',v:'none'}],id);
+  st.ending=e.v;
+}
+
+/* ========== 保護者体験編 ========== */
+async function pIntro(id){
+  clear();setBar('保護者体験編','');st.h=null;
+  await sys('ここから3日間、あなたは中学2年生の{n}さんのスマホの画面を見ます',id);
+  await sys('{n}さんになったつもりで、返信を選んでください',id);
+  await note('保護者の方へ',[
+    '子どもたちは、クラス全体のグループのほかに、少人数のグループをいくつも持っているのがふつうです。グループの会話は、数秒のうちに何件も流れていきます。',
+    'この体験では、ふだんは本人にも保護者にも見えない「{n}さんのいないグループ」の会話も表示されます。メッセージの下の黄色い欄は、言葉の意味の解説です。'],id);
+}
+async function pn1(id){
+  await note('解説：表と裏のグループ',[
+    '同じ1分のあいだに、表では「神🙏」、裏では「でしゃばり出た」。子どもが見ているのは表のグループだけです。',
+    '「ｗ」「草」「😭」は笑いの表現ですが、きつい言葉をやわらげたり、ごまかしたりするためにも使われます。'],id);
+}
+async function pn2(id){
+  await note('解説：ことばの読み方',[
+    '👍だけ、既読だけの返事は、相手との距離を表すことがあります。グループの「既読 18」は、だれが読んだのか本人にはわかりません。',
+    '「鍵垢」「ストーリー」など、トークアプリの外のSNSにも会話は広がります。'],id);
+}
+async function pn3(id){
+  await note('解説：送信取り消し',[
+    '取り消されたメッセージは画面から消えますが、見てしまった記憶は消えません。',
+    '保護者がスマホを見せてもらっても、取り消されたメッセージや、本人が入っていないグループは見えません。子どもは「知らないふり」で、いつも通りにふるまうことがよくあります。'],id);
+}
+async function pHome(id){
+  clear();$('#log').classList.add('home');st.h=null;
+  setBar('その夜　リビングで','ここからは、あなた自身として選んでください');
+  idleDock('');
+  await sys('10月16日（木）21:50　夕ごはんのあと',id);
+  await say('{n}','ごちそうさま',id);
+  await sys('{n}さんはいつもより口数が少なく、スマホを裏返してテーブルに置きました',id);
+  const a=await choose('あなたは、どう声をかけますか？',[
+    {t:'「スマホばっかり見てないで、宿題は？」',v:'a'},
+    {t:'「なんか元気ないね。今日どうだった？」',v:'b'},
+    {t:'「スマホ見せて。何かあったでしょ」',v:'c'},
+    {t:'（そっとしておく）',v:'d'}],id);
+  if(a.v!=='d')await me(a.t.replace(/[「」]/g,''),0,id);
+  const R={a:['…わかっとる'],b:['別に。ふつう'],c:['…なんで？なんもないし']}[a.v];
+  if(R){for(const r of R)await say('{n}',r,id);}
+  await sys('{n}さんは自分の部屋に戻りました',id);
+  await note('ふり返り',{
+    a:'スマホや宿題の注意から入ると、子どもは「わかってもらえない」と感じて部屋に戻りがちです。様子の変化に気づいたときは、注意より先に声かけを。',
+    b:'「別に」と返ってきても、それで十分です。「気にかけているよ」は伝わっています。しつこく聞かず、話せる時間を残しておきましょう。',
+    c:'スマホを見せるよう求めると、子どもは「取り上げられる」「大ごとにされる」と身構えます。裏のグループや取り消されたメッセージは、どのみち画面には残っていません。',
+    d:'そっとしておくのも、ひとつの選択です。ただ「気づいているよ」が伝わらないと、子どもは「親は気づいていない」と思って、ひとりで抱え込みやすくなります。'}[a.v],id);
+
+  clear();$('#log').classList.add('home');
+  await sys('数日後の夜、{n}さんがぽつりと話しはじめました',id);
+  await say('{n}','…ねえ、クラスのグループでさ',id);
+  await say('{n}','わたしのこと、うざいって言っとるグループがあるっぽい',id);
+  await say('{n}','まちがえて送られてきたの、これ',id,{shot:{head:'2年3組 みんな　10月16日 21:31',rows:[['みお','{n}今日もまじうざかったｗ ニコニコしすぎてキツ']]}});
+  const b=await choose('あなたは、どう返しますか？',[
+    {t:'「話してくれてありがとう。つらかったね」',v:'1'},
+    {t:'「えっ、だれ？すぐ学校に電話する！」',v:'2'},
+    {t:'「相手の親に連絡しよう」',v:'3'},
+    {t:'「気にしすぎだよ。ほっとけばいい」',v:'4'}],id);
+  await me(b.t.replace(/[「」]/g,''),0,id);
+  if(b.v==='1'){
+    await say('{n}','…うん',id);
+    await note('ふり返り','最初に気持ちを受け止めることで、子どもは「話してよかった」と感じます。ここからが本当のスタートです。',id);
+    await say('{n}','でも、先生には言わんで',id);
+    await say('{n}','言ったら、もっとひどくなるけん',id);
+    const c=await choose('あなたは？',[
+      {t:'「わかった、言わないよ」',v:'x'},
+      {t:'「勝手には動かないよ。どうしたいか一緒に考えよう」',v:'y'},
+      {t:'「だめ、これは先生に言う」',v:'z'}],id);
+    await me(c.t.replace(/[「」]/g,''),0,id);
+    await say('{n}',{x:'…ありがと',y:'…うん',z:'…なんで言っちゃったんやろ'}[c.v],id);
+    await note('ふり返り',{
+      x:'子どもの気持ちを尊重する姿勢は大切です。ただ「ぜったい言わない」と約束すると、状況が悪くなったときに動けなくなります。「勝手には動かない」という約束のほうが守りやすいです。',
+      y:'いちばん安心できる返し方です。先生に話すかどうか、だれに、どんなふうに話すかを、子どもと一緒に決めていきましょう。',
+      z:'学校への相談は必要です。でも、子どもの同意なしに進めると「もう何も話さない」につながることがあります。理由を説明し、伝え方を一緒に考えてください。'}[c.v],id);
+  }else{
+    const R2={'2':['やめて！大ごとにせんで','…言わんきゃよかった'],'3':['ぜったいやめて','もっとひどくなる'],'4':['…そうよね']}[b.v];
+    for(const r of R2)await say('{n}',r,id);
+    await sys('{n}さんは、それ以上話さなくなりました',id);
+    await note('ふり返り',{
+      '2':'親が強く反応すると、子どもは「言わなきゃよかった」と後悔し、次から話さなくなることがあります。学校への相談は大切ですが、まず受け止めて、どう動くかを一緒に決めましょう。',
+      '3':'保護者同士の直接の連絡は、感情的な対立になりやすく、子ども同士の関係がさらにこじれることがあります。学校に間に入ってもらうのが基本です。',
+      '4':'「気にしすぎ」は、子どもにとって「わかってもらえなかった」という意味になります。勇気を出して話したことを、まず受け止めてあげてください。'}[b.v],id);
+  }
+  st.ending='p';
+}
+
+/* ========== 静かな仲間はずれ編 ========== */
+async function a1(id){
+  clear();GROUP();clock(21,0);
+  await sys('10月14日（火）',id);
+  await burst(id,[
+    ['ゆうと','明日の体育ジャージ？'],['さき','そう！'],
+    ['りく','てか数学のプリントえぐい'],['こうき','何枚？'],['けんた','わからん'],
+    ['あや','終わってないの私だけじゃなくてよかった'],
+  ]);
+  await choose('答えを知っています。返信してみよう',[{t:'プリント2枚だよ！がんば〜'}],id);
+  await me('プリント2枚だよ！がんば〜',14,id);
+  await wait(2800,id);
+  await burst(id,[
+    ['さき','てか明日カラオケ行く人〜🎤'],['みお','いく！'],['けんた','おれも'],['りく','いくいく'],
+    ['こうき','ワンチャン行ける',{g:'ワンチャン＝もしかしたら、可能性がある'}],
+  ]);
+  const c=await choose('あなたは？',[{t:'わたしも行きたい！',v:'ask'},{t:'（なにも送らない）',v:'quiet'}],id);
+  if(c.v==='ask'){
+    await me('わたしも行きたい！',22,id);await wait(2800,id);
+    await burst(id,[['さき','あー人数決まっちゃってて'],['さき','ごめんね〜ｗ'],['みお','ｗ'],['こうき','…']]);
+  }else{
+    await wait(1400,id);
+    await burst(id,[['さき','じゃ、いつものメンバーで！'],['みお','りょ',{g:'りょ＝了解'}]]);
+  }
+  await burst(id,[['りく','詳しくはあっちで〜'],['けんた','おけ',{g:'おけ＝OK'}]]);
+  await feel('1日目',id);
+}
+async function a2(id){
+  clear();setBar('はるな','');clock(22,14);
+  await sys('10月15日（水）',id);
+  await say('はるな','{n}、ちょっといい？',id);
+  await say('はるな','ごめん、見せんほうがいいかもやけど…',id);
+  await say('はるな','回ってきたスクショ',id,{shot:{head:'グループ「2-3（{n}以外）」',rows:[
+    ['さき','今日も{n}のきのこ発動してたｗ'],['みお','きのこすぎて草'],['りく','🍄🍄🍄'],['こうき','それな'],['けんた','やめとけってｗ']]}});
+  await say('はるな','わたしはそのグループ入ってないんやけど',id);
+  const c=await choose('はるなに、何て返す？',[
+    {t:'え…「きのこ」ってなに？',v:'q'},{t:'別に気にしてないよ',v:'brave'},{t:'（返信しない）',v:'none'}],id);
+  if(c.v==='q'){await me(c.t,1,id);await wait(1200,id);
+    await say('はるな','わからん…',id);await say('はるな','でも、たぶん{n}のことやと思う',id);}
+  else if(c.v==='brave'){await me(c.t,1,id);await wait(1200,id);
+    await say('はるな','ほんとに？',id);await say('はるな','むりせんでね',id);}
+  else{await wait(3200,id);await say('はるな','ごめん、見せんほうがよかったかな',id);}
+  await feel('2日目',id);
+}
+async function a3(id){
+  clear();GROUP();clock(20,48);
+  await sys('10月16日（木）',id);
+  await burst(id,[
+    ['りく','🍄',{big:true}],['みお','ｗ'],['さき','🍄🍄',{big:true}],['こうき','草'],
+    ['けんた','なにそれｗ'],['ゆうと','？'],['りく','わかる人にはわかる'],['あや','🍄🍄🍄',{big:true}],['みお','ｗｗｗ'],
+  ]);
+  const c=await choose('あなたは？',[{t:'ねえ、それってなに？',v:'ask'},{t:'（だまって見ている）',v:'quiet'}],id);
+  if(c.v==='ask'){await me(c.t,30,id);await wait(2800,id);await sys('だれも返信していません',id);}
+  else{await wait(2200,id);await burst(id,[['みお','🍄',{big:true}],['こうき','🍄',{big:true}]]);}
+  await wait(1400,id);
+  await sys('さきが{n}をグループから退会させました',id);
+  await wait(800,id);
+  idleDock('このグループには参加していません');
+  await wait(2500,id);
+  await feel('3日目',id);
+  const e=await choose('このあと、あなたはどうする？',[
+    {t:'家の人に話す',v:'home'},{t:'先生やスクールカウンセラーに話す',v:'school'},
+    {t:'はるなに話す',v:'peer'},{t:'だれにも言わない',v:'none'}],id);
+  st.ending=e.v;
+}
+
+/* ========== 立場を入れかえる ========== */
+const MIRROR={
+  B:{lines:['てか今日の〇〇の寝ぐせガチえぐかったｗｗｗ','📡','ノリ悪〜'],
+     src:'この3日間、あなたに届いたメッセージです'},
+  C:{lines:['「神🙏」って送っといたｗ','こわｗ','草'],
+     src:'この3日間、あなたのいないグループで送られていたメッセージです'},
+  A:{lines:['ごめんね〜ｗ','🍄','りょ'],
+     src:'この3日間、あなたが見たメッセージです'}
+};
+async function mirror(id){
+  clear();setBar('あなたのトーク','ここからは、ふだんのあなたとして');st.h=null;
+  idleDock('');
+  await sys('ここまでは、される側の画面でした',id);
+  await wait(800,id);
+  await sys('今度は、送る側に立ってみます',id);
+  await sys(MIRROR[st.mode].src,id);
+  for(const t of MIRROR[st.mode].lines){await me(t,0,id);await wait(500,id)}
+  await wait(800,id);
+  await sys('送るのにかかる時間は、1秒ほどです',id);
+  const c=await choose('こんなメッセージを、あなたも送ったことはありますか？',[
+    {t:'よくある',v:'often'},{t:'たまにある',v:'some'},{t:'ないと思う',v:'no'},{t:'わからない',v:'dk'}],id);
+  st.mirror=c.v;
+  await note('ふり返り',{
+    often:'正直に選べたことが大切です。送ったときは、軽いノリだったと思います。でも、受け取った側がどう感じていたかは、さっき体験したとおりです。',
+    some:'だれでも、ノリで送ってしまうことはあります。大切なのは、送る前に一瞬だけ「相手がこれを見たら？」と考えることです。',
+    no:'それはすてきなことです。ただ「ｗ」や「草」だけの返信で、知らないうちにいじりに乗っかっていることもあります。このあとのチェックで、もう一度ふり返ってみてください。',
+    dk:'わからなくて当然です。送った側は、たいてい覚えていません。でも、受け取った側は覚えていることが多いのです。'}[c.v],id);
+}
+const SELF=[
+  'だれかの見た目や失敗を、グループでネタにしたことがある',
+  '本人がいやがっているかもしれないあだ名で呼んだことがある',
+  '「ｗ」「草」「😭」だけ送って、いじりに乗っかったことがある',
+  '返事がない人に「既読無視」「ノリ悪」と送ったことがある',
+  '本人のいないグループで、その人のうわさや悪口を話したことがある',
+  'だれかのスクショや写真を、本人にことわらずに回したことがある',
+  '「冗談やん」「Jk」で、相手の「いや」を流したことがある',
+  '表では「さすが」と言いながら、裏では別のことを言ったことがある'
+];
+const SELF_NEXT=[
+  {t:'直接あやまる',f:'とても勇気のいることです。「あのときのあれ、ごめん」の短いひとことで十分です。相手がすぐに許してくれなくても、あやまったことは届いています。'},
+  {t:'これからは同じことをしない',f:'それだけでも、相手にとっては大きな変化です。ほかの人がいじっているとき、乗っからないことも含まれます。'},
+  {t:'その人に、ふつうに話しかける',f:'グループの外で、ふつうに声をかけてもらえるだけで「ひとりじゃない」と感じられます。'},
+  {t:'思いうかぶ人はいない／まだわからない',f:'それでもかまいません。今日体験した気持ちを覚えておくことが、これから送るメッセージを変えていきます。'}
+];
+function renderSelf(){
+  const card=$('#selfCard');card.hidden=(st.mode==='P');if(card.hidden)return;
+  const list=$('#selfList');list.innerHTML='';const sel=new Set();
+  SELF.forEach((s,i)=>{const c=el('button','chip',s);c.setAttribute('aria-pressed','false');
+    c.onclick=()=>{sel.has(i)?sel.delete(i):sel.add(i);c.setAttribute('aria-pressed',sel.has(i))};list.append(c)});
+  $('#selfFb').hidden=true;$('#selfNext').hidden=true;$('#selfFb2').hidden=true;
+  $('#selfGo').onclick=()=>{
+    const n=sel.size;const fb=$('#selfFb');
+    fb.textContent=n===0
+      ?'あてはまるものがなかったのは、すてきなことです。これからも、送る前に「相手がこれを見たら？」と一瞬だけ考えてみてください。そして、だれかがされているのを見かけたら、さっきの自分の気持ちを思い出してください。'
+      :n<=2
+      ?'正直にふり返れたことが、いちばん大切です。送ったときはきっと、悪気はなかったと思います。でも、受け取った人はさっきのあなたと同じ気持ちだったかもしれません。'
+      :'たくさん選んだのは、それだけ正直にふり返れたということです。自分を責めすぎる必要はありません。今日気づけたことが、これからの会話を変えるスタートです。';
+    fb.hidden=false;$('#selfNext').hidden=(n===0);
+  };
+  const so=$('#selfOpts');so.innerHTML='';
+  SELF_NEXT.forEach(o=>{const b=el('button','opt',o.t);b.onclick=()=>{
+    so.querySelectorAll('.opt').forEach(x=>x.style.borderColor='');b.style.borderColor='var(--accent)';
+    const f=$('#selfFb2');f.textContent=o.f;f.hidden=false};so.append(b)});
+}
+
+/* ========== debrief content ========== */
+const D={
+ A:{
+  endings:{
+   peer:['味方がひとり、いてくれました','味方がいるだけで、気持ちはずいぶん軽くなります。でも友だちだけでは抱えきれないこともあります。いつか大人にもつないでみてください。'],
+   none:['言えない気持ちも、自然なことです','だれにも言えないのは、あなたが弱いからではありません。いつか話したくなったときのために、下の相談先を覚えておいてください。']},
+  check:null,
+  steps:[
+   ['既読なのに返事がない・話題をそらされる','ことばで攻撃しなくても、「いないもの」として扱うことは相手を深く傷つけます。'],
+   ['本人のいないグループとスクリーンショット','見えない場所での悪口は、スクショで本人に届きます。届けた側に悪気がなくても、受け取る側の苦しさは大きくなります。'],
+   ['本人にはわからない言葉（隠語）','「きのこ」はこの体験のためにつくった架空の言葉です。実際のいじめでも、仲間内だけで通じる言葉や絵文字で悪口が言われることがあります。意味がわからないことが、不安をさらに大きくします。'],
+   ['グループからはずされる','ボタンひとつでできることでも、される側にとっては「クラスの居場所」を失う出来事です。']],
+  byQ:'あのグループに、あなたがいたとします。{n}さんのために、何ができそうですか。',
+  by:[
+   {t:'なにもしない（巻き込まれたくない）',f:'そう思うのは自然なことです。ただ、だれも何もしないと、される側には「全員が敵」に見えてしまいます。目立たない方法もあります。'},
+   {t:'「それやめよ」とグループに書く',f:'とても勇気のある行動です。ひとりが止めると、同じ気持ちだった人が続きやすくなります。'},
+   {t:'{n}さんに個別でメッセージを送る',f:'「大丈夫？」のひとことは、相手にとって大きな支えになります。グループで言えなくても、できることです。'},
+   {t:'大人に知らせる',f:'それは「チクる」ことではなく、友だちを守る行動です。名前を出さずに相談することもできます。'}],
+  tq:['カラオケの場面で、だれか「悪いこと」を言った人はいましたか。それでも傷ついたのはなぜでしょう。',
+   'スクショを見せたはるなさんの行動を、あなたはどう思いますか。',
+   'けんたさんの「やめとけってｗ」は、止めたことになるでしょうか。',
+   'このクラスで同じことが起きないために、できることは何でしょう。']
+ },
+ B:{
+  endings:{
+   peer:['となりにいる人に、手をのばせました','グループの中では言えなくても、そうたへの「さっきのは気にせんで」のひとことは届きます。あなた自身も「アンテナ」と呼ばれていやだったなら、それも大人に話していいことです。'],
+   none:['いじり返したことがあっても、相談していい','「自分もいじったから、言う資格がない」と感じる人はとても多いです。でも、いやだった気持ちは本物です。おあいこかどうかと、相談していいかどうかは、別のことです。']},
+  check:{title:'「いじり」と「いじめ」の境目チェック',intro:'笑いで終わる「いじり」には、次の条件がそろっています。',
+   items:['1対1で、おたがいさまになっている（何人もで1人に、ではない）','言われた人も、本当に笑っている','「それやだ」と言えば、すぐにやめてもらえる','何日も同じことが続いていない'],
+   note:'ひとつでも欠けたら、それはもう「いじり」ではありません。'},
+  steps:[
+   ['いじり返しが通じるのは「1対1・おたがいさま」のときだけ','1日目は笑いで終わりました。でも2日目には何人も対1人。同じいじり返しでも「ムキになってる」「ノリ悪」と言われて、もう効かなくなっていました。'],
+   ['あだ名が定着する','「アンテナ」は1回なら笑い話でも、毎日みんなから📡を送られると、本人には逃げ場のない名前になります。'],
+   ['「Jkやん」「おあいこやん」','いじり返したことがある人ほど、「おあいこ」と言われて相談しにくくなります。でも、一度いじり返したことは、その後ずっといじられてよい理由にはなりません。'],
+   ['標的が移っていく','自分がいじられないために、別のだれかをいじる側に回ることがあります。そうたのように、いじり返さない人がいちばん苦しくなります。']],
+  byQ:'そうたがグループを退会したとき、あなたがあのグループにいたら、何ができそうですか。',
+  by:[
+   {t:'なにもしない（自分がいじられたくない）',f:'その気持ちはよくわかります。このクラスでは、目立つと次は自分かもしれないからです。でも、だれも何もしないと、そうたは「クラス全員が笑っていた」と感じます。'},
+   {t:'話題を変える',f:'いじりを直接止めなくても、流れを変えるのは立派な行動です。「まじめか」と言われても、それで終わることも多いです。'},
+   {t:'そうたに個別でメッセージを送る',f:'「さっきのは気にせんで」のひとことで、そうたは「全員が敵じゃない」とわかります。グループの外でもできることです。'},
+   {t:'大人に知らせる',f:'「ただのノリ」に見えても、大人に伝えていいことです。名前を出さずに相談することもできます。'}],
+  tq:['1日目と2日目で、同じ「いじり返し」なのに結果が変わったのはなぜでしょう。',
+   '「Jkやん」「ノリ悪」と言われると、どうして言い返しにくいのでしょう。',
+   '「おまえもやってた」と言われた人は、相談してはいけないのでしょうか。',
+   'そうたは一度もいじり返していません。このクラスで、いじり返さない人はどんな立場になりやすいでしょう。',
+   'このクラスで「いじり」と「いじめ」の線をどこに引くか、話し合ってみましょう。']
+ },
+ C:{
+  endings:{
+   peer:['信頼できる人に話せました','裏のグループのことを知ると、「だれを信じればいいのか」わからなくなります。話せる人がひとりいるだけで支えになります。大人にもつないでみてください。'],
+   none:['知らないふりをしたくなるのも、自然なことです','気づかなかったことにして、いつも通りニコニコする人は多いです。でも、その笑顔の裏で傷ついた気持ちは、なかったことにはなりません。いつか話したくなったときのために、相談先を覚えておいてください。']},
+  check:null,
+  steps:[
+   ['表と裏で、態度がちがう','目の前の「神🙏」「さすが」が本心かどうか、わからなくなります。だれの言葉も信じられなくなること自体が、深い傷になります。'],
+   ['本人の知らないところで「便利」に使われる','「ほめとけばやってくれる」。本人は親切のつもりでも、裏では笑われていました。知った瞬間、それまでのがんばりまで否定された気持ちになります。'],
+   ['裏の言葉は、いつか本人に届く','送信ミス、スクショ、鍵垢のストーリー。取り消しても、見てしまった記憶は消えません。「本人に見られないから大丈夫」は成り立ちません。'],
+   ['「こわｗ」「草」とだけ書く人','けんたやあやは悪口を言っていないように見えます。でも笑って流すことで、グループの空気は「言っていい場所」になっていきます。']],
+  byQ:'「2-3（{n}以外）」のグループに、あなたも入っていたとします。何ができそうですか。',
+  by:[
+   {t:'なにもしない（次は自分が言われそう）',f:'その不安はもっともです。本人のいないグループは、だれもが「次は自分かも」と感じる場所です。でも、だれも何も言わないと、悪口はどんどん強くなります。'},
+   {t:'「本人に見せられんことは書くのやめよ」と書く',f:'とても勇気のいる行動です。あやの「それはやめとき」のように、同じように感じていた人がほかにもいるかもしれません。'},
+   {t:'だまってグループを抜ける',f:'加わらない、という意思を示す行動です。抜けたあとに{n}さんへ声をかけたり、大人に伝えたりできると、守ることにもつながります。'},
+   {t:'大人に知らせる',f:'「チクる」ことではありません。名前を出さずに相談することもできます。'}],
+  tq:['表のグループと裏のグループ、どちらの言葉がよりつらかったですか。それはなぜでしょう。',
+   '「ほめとけばやってくれる」と言われていたと知ったら、看板を描いたことをどう思うでしょう。',
+   '裏グループで「こわｗ」「草」とだけ書いた人は、悪口を言ったことになるでしょうか。',
+   '本人のいないグループがあること自体は、悪いことでしょうか。どこからが問題になるでしょう。',
+   'もし自分が、まちがえて裏の言葉を本人に送ってしまったら。そのあとどうしますか。']
+ },
+ P:{
+  endings:{p:['話してくれる関係が、いちばんの守りです','子どもが大人に話すかどうかは、「話したらどうなるか」を見て決めています。すぐに動くより、まず受け止めること。そのうえで、どうしたいかを一緒に考えることが大切です。']},
+  check:{title:'家庭で気づけるサイン',intro:'次のような変化が続いたら、いつもより少し気にかけてみてください。',
+   items:['スマホの通知にびくっとする、または急に見なくなる','夜おそくまでスマホを手放さない','スマホを裏返して置く、画面を見られるのをいやがる','食欲や睡眠がいつもとちがう','学校や友だちの話をしなくなる、朝になると体調不良を訴える'],
+   note:'問いつめるより、「最近どう？」と聞ける時間をつくることから。'},
+  steps:[
+   ['会話は数秒で流れていく','グループでは、1分のあいだに10件以上のメッセージが流れるのがふつうです。ひとつの悪口も、すぐに何人もの「ｗ」「草」「😭」でうめられていきます。'],
+   ['保護者には見えないグループがある','クラス全体のグループのほかに、少人数のグループがいくつもあるのがふつうです。スマホを見せてもらっても、本人が入っていないグループや取り消されたメッセージは見えません。'],
+   ['「笑」は楽しいとはかぎらない','「ｗ」「草」「😭」は、きつい言葉をやわらげたり、ごまかしたりするためにも使われます。👍だけの返信や既読だけの反応も、距離を表すことがあります。'],
+   ['子どもが大人に話さない理由','「大ごとにされる」「スマホを取り上げられる」「仕返しがこわい」「自分にも悪いところがある気がする」。この心配をひとつずつ取りのぞくことが、話してもらう近道です。']],
+  byQ:'お子さんが「友だちがクラスのグループで悪口を言われてる」と話してきたら、どう返しますか。',
+  by:[
+   {t:'「あなたは関わらないようにしなさい」',f:'お子さんを守りたい気持ちは自然です。ただ「関わるな」と言われると、次からは話してくれなくなることがあります。まずは「教えてくれてありがとう」から。'},
+   {t:'「それは先生に言ったほうがいいね」とすぐ言う',f:'方向は正しいです。ただ、お子さんは自分の名前が出ることを心配しているかもしれません。どう伝えるかを一緒に決めると安心します。'},
+   {t:'「教えてくれてありがとう。その子のこと、どう思う？」',f:'お子さんの気持ちと考えを先に聞くことで、「話してよかった」と感じられます。そのうえで、できることを一緒に考えられます。'},
+   {t:'「よくあることだよ」',f:'大人には小さく見えても、子どもにとっては大きな出来事です。軽く扱われたと感じると、自分が困ったときにも話しにくくなります。'}],
+  tqSum:'保護者会・家庭で話し合うときの問いの例',
+  tq:['お子さんが入っているグループの数や、だいたいの雰囲気を知っていますか。',
+   'この体験で、意味がわからなかった言葉はいくつありましたか。お子さんに聞いてみると、会話のきっかけになります。',
+   'お子さんが「別に」と答えたとき、ふだんどう返していますか。',
+   '「スマホを取り上げる」ことは、子どもにとってどんな意味を持つでしょう。',
+   '学校に相談するとき、お子さんの気持ちをどう守りながら進めますか。']
+ }
+};
+const COMMON={
+  home:['話してくれて、ありがとう','家の人に話すのは勇気がいることです。ひとりで抱えないことが、いちばん大切な一歩です。'],
+  school:['大人につなげることができました','学校には、相談を受け止めて動くしくみがあります。先生が知ることで、クラス全体のノリを変えられることもあります。'],
+  quit:['途中でやめることができました','つらいと感じて止まれたことは、大切な力です。']
+};
+
+function debrief(){
+  show('pDebrief');setBar('そのｗ、笑ってる？','ふり返り');
+  const d=D[st.mode];const k=st.ending||'quit';
+  const [t,l]=d.endings[k]||COMMON[k];$('#endTitle').textContent=t;$('#endLead').textContent=l;
+  const fl=$('#feelLog');fl.innerHTML='';
+  if(!st.feels.length)fl.append(el('p','meta','記録はありません。'));
+  st.feels.forEach(([s,fs])=>{const p=el('p');p.append(el('b',null,s+'　'));
+    if(!fs.length)p.append(el('span','meta','えらばなかった'));fs.forEach(f=>p.append(el('span','tag',f)));fl.append(p)});
+  const cc=$('#checkCard');cc.innerHTML='';cc.hidden=!d.check;
+  if(d.check){const ul=el('ul','checks');d.check.items.forEach(i=>ul.append(el('li',null,i)));
+    cc.append(el('h2',null,d.check.title),el('p',null,d.check.intro),ul,el('p','line-note',d.check.note))}
+  renderSelf();
+  const ol=$('#steps');ol.innerHTML='';
+  d.steps.forEach(([h,b])=>{const li=el('li');li.append(el('b',null,h),el('br'),document.createTextNode(b));ol.append(li)});
+  $('#byQ').textContent=fill(d.byQ);
+  const bo=$('#byOpts');bo.innerHTML='';$('#byFb').hidden=true;
+  d.by.forEach(o=>{const b=el('button','opt',fill(o.t));b.onclick=()=>{
+    bo.querySelectorAll('.opt').forEach(x=>x.style.borderColor='');b.style.borderColor='var(--accent)';
+    const fb=$('#byFb');fb.textContent=fill(o.f);fb.hidden=false};bo.append(b)});
+  const gl=$('#glList');gl.innerHTML='';
+  st.glos.forEach((v,k)=>{gl.append(el('dt',null,k),el('dd',null,v))});
+  $('#glCard').hidden=(st.glos.size===0||(!st.gl&&st.mode!=='P'));
+  $('#helpD').innerHTML=st.mode==='P'?HELP_P:HELP;
+  $('#tqSum').textContent=d.tqSum||'教員・保護者の方へ：ふり返りの問いの例';
+  const tq=$('#tq');tq.innerHTML='';d.tq.forEach(q=>tq.append(el('li',null,q)));
+  if(st.mode!=='P'){
+    tq.append(el('li',null,'今日の自分と同じ気持ちを、ふだんの会話でだれかにさせてしまったかもしれないメッセージはありますか。（発表はさせず、心の中で考える時間にしてください）'));
+    tq.append(el('li',null,'送る前に「相手がこれを見たら？」と考えるために、クラスで決められるルールはありますか。'));
+  }
+  $('#pDebrief').scrollTop=0;
+}
+
+async function start(){
+  const n=$('#nameIn').value.trim()||'ひなた';
+  const mode='P';
+  st={name:n,mode,feels:[],ending:null,pending:null,glos:new Map(),last:null,h:null,m:0,cnt:0,gl:false};
+  const id=++runId;
+  clear();idleDock();show('pChat');setGl(true);
+  const scenes={A:[a1,a2,a3,mirror],B:[b1,b2,b3,mirror],C:[c1,c2,c3,mirror],P:[pIntro,c1,pn1,c2,pn2,c3,pn3,pHome]}[mode];
+  try{for(const s of scenes)await s(id);await wait(400,id);debrief();}
+  catch(e){if(e!==ABORT)throw e}
+}
+function quit(){runId++;if(st&&st.pending){try{st.pending(ABORT)}catch(e){}}if(st)st.ending=null;
+  show('pQuit');setBar('そのｗ、笑ってる？','ひと休み')}
+function home(){runId++;show('pStart');setBar('そのｗ、笑ってる？','保護者のためのグループトーク体験')}
+
+$('#startBtn').onclick=start;
+$('#stopBtn').onclick=quit;
+$('#toDebriefBtn').onclick=()=>{if(!st)return home();debrief()};
+$('#restartBtn1').onclick=home;$('#restartBtn2').onclick=home;
+})();
+</script>
+
+</body>
+</html>
