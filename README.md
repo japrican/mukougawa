@@ -2,8 +2,8 @@
 
 子どもたちのグループトーク体験。小学生・中学生・高校生のスマホに届く3日間を体験し、子どもたちの言葉の意味と、話してもらえる声かけを学ぶページです。
 
-- 家庭版：https://mukougawa.manabino-mikata.com/
-- 学校版：https://mukougawa.manabino-mikata.com/#school
+- 家庭版：https://manabino-mikata.com/mukougawa/
+- 学校版：https://manabino-mikata.com/mukougawa/#school
 
 ## 中身
 
@@ -24,10 +24,10 @@
 | `share.png` | SNSでシェアしたときに表示される画像（1200×630） |
 | `.nojekyll` | GitHub Pagesでそのまま公開するための空ファイル |
 
-## 公開のしかた（Cloudflare Pages）
+## 公開のしかた（GitHub Pages）
 
-1. Cloudflareの「Workers & Pages」で、このリポジトリをGitに接続してPagesのプロジェクトを作る（ビルド設定はなし、出力ディレクトリは `/`）
-2. プロジェクトの「カスタムドメイン」に `mukougawa.manabino-mikata.com` を追加する
+1. **Settings → Pages** で、ブランチ `main`、フォルダ `/ (root)` を選んで保存
+2. 数分後に https://manabino-mikata.com/mukougawa/ で公開されます
 3. このリポジトリのファイルを更新すると、自動で公開ページに反映されます
 
 ## 制作
