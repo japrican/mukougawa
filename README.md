@@ -32,5 +32,5 @@
 
 ## 制作
 
-ひろこ（Mama Café Kurume）
+hiroko（Mama Café Kurume）
 登場する人物・グループ・あだ名・隠語はすべて架空のものです。
