@@ -392,7 +392,7 @@ button.primary,a.primary,.primary{background:var(--accent);color:#fff;border:0;b
     <p class="lead" id="endLead"></p>
 
     <div class="card">
-      <h2>あなたが感じた気持ち</h2>
+      <h2>気持ちをふり返る</h2>
       <div id="feelLog"></div>
     </div>
 
@@ -568,15 +568,15 @@ function feel(scene,id){
   if(par&&scene!=='親として')return Promise.resolve();
   return new Promise((res,rej)=>{
   if(id!==runId)return rej(ABORT);
-  const d=$('#dock');d.innerHTML='';d.append(el('div','q',par?'3日間を見て、親として、いまどんな気持ちですか？（いくつ選んでもOK）':'いま、どんな気持ち？（いくつ選んでもOK）'));
-  const box=el('div','chips');const sel=new Set();
-  (par?FEELS_P:['E','F'].includes(st.mode)?FEELS_E:FEELS).forEach(f=>{const c=el('button','chip',f);c.setAttribute('aria-pressed','false');
-    c.onclick=()=>{sel.has(f)?sel.delete(f):sel.add(f);c.setAttribute('aria-pressed',sel.has(f))};box.append(c)});
-  d.append(box);
-  const acts=el('div','acts');const skip=el('button','ghost','えらばない');const go=el('button','primary','つぎへ');
-  skip.onclick=()=>{st.feels.push([scene,[]]);idleDock();res()};
-  go.onclick=()=>{st.feels.push([scene,[...sel]]);idleDock();res()};
-  acts.append(skip,go);d.append(acts);st.pending=rej;
+  const kid=['E','F'].includes(st.mode);
+  const d=$('#dock');d.innerHTML='';
+  const box=el('div','pnote');
+  const q=par?'3日間を見て、親として、いまどんな気持ちですか？':kid?scene+'がおわったよ。いま、どんな気もち？':scene+'が終わりました。いま、どんな気持ちですか？';
+  const sub=par?'すぐに言葉にならなくても大丈夫です。少しだけ、ご自分の気持ちに目を向けてみてください。':kid?'えらばなくていいよ。心の中で、ことばにしてみよう。':'答えを選ぶ必要はありません。心の中で、少しだけ言葉にしてみてください。';
+  box.append(el('div','q',q),el('p',null,sub));
+  const go=el('button','primary','つぎへ');
+  go.onclick=()=>{st.feels.push([scene,[]]);idleDock();res()};
+  d.append(box,go);go.focus({preventScroll:true});st.pending=rej;
 })}
 function hold(id){if(!st.sync)return Promise.resolve();return new Promise((res,rej)=>{
   if(id!==runId)return rej(ABORT);
@@ -1692,9 +1692,8 @@ function debrief(){
   const d=D[st.mode]||D_EH[st.mode];const k=st.ending||'quit';
   const [t,l]=d.endings[k]||COMMON[k];$('#endTitle').textContent=fill(t);$('#endLead').textContent=fill(l);
   const fl=$('#feelLog');fl.innerHTML='';
-  if(!st.feels.length)fl.append(el('p','meta','記録はありません。'));
-  st.feels.forEach(([s,fs])=>{const p=el('p');p.append(el('b',null,s+'　'));
-    if(!fs.length)p.append(el('span','meta','えらばなかった'));fs.forEach(f=>p.append(el('span','tag',f)));fl.append(p)});
+  {const par=st.mode.startsWith('P'),kid=['E','F'].includes(st.mode);
+   fl.append(el('p',null,par?'体験しながら、どんな気持ちになりましたか。驚き、心配、胸の痛み。どれも、お子さんの世界に近づいたしるしです。':kid?'たいけんしながら、どんな気もちになった？ その気もちは、まちがいじゃないよ。おうちの人や先生に、ことばにして話してみよう。':'体験しながら、どんな気持ちになりましたか。その気持ちに正解はありません。言葉にできたら、ワークシートやおうちの人との会話で話してみてください。'));}
   const cc=$('#checkCard');cc.innerHTML='';cc.hidden=!d.check;
   if(d.check){const ul=el('ul','checks');d.check.items.forEach(i=>ul.append(el('li',null,i)));
     cc.append(el('h2',null,d.check.title),el('p',null,d.check.intro),ul,el('p','line-note',d.check.note))}
