@@ -196,8 +196,12 @@ body.school .home-only,body:not(.school) .school-only{display:none!important}
 
 .dock{border-top:1px solid var(--line);background:var(--panel);padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;max-height:55%;overflow-y:auto}
 .dock .q{font-size:14px;color:var(--ink2);font-weight:700}
-.opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:15px;line-height:1.6;color:var(--ink)}
-.opt:hover{border-color:var(--accent-2);background:var(--tint)}
+.dock .hint{font-size:12px;color:var(--muted);margin-top:-4px;display:flex;align-items:center;gap:6px}
+.dock .hint::before{content:"";width:14px;height:14px;flex:0 0 14px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 11V5a2 2 0 0 1 4 0v6'/%3E%3Cpath d='M13 10a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-2.5-4a2 2 0 0 1 3.4-2L9 15'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 11V5a2 2 0 0 1 4 0v6'/%3E%3Cpath d='M13 10a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-2.5-4a2 2 0 0 1 3.4-2L9 15'/%3E%3C/svg%3E") center/contain no-repeat}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;background:var(--panel);border:1px solid var(--line);border-bottom-width:2px;border-radius:10px;padding:11px 14px;font-size:15px;line-height:1.6;color:var(--ink);box-shadow:0 1px 2px rgba(20,24,32,.06);transition:transform .08s,background .15s,border-color .15s}
+.opt::after{content:"";flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h13M13 6l6 6-6 6'/%3E%3C/svg%3E") center/14px no-repeat}
+.opt:active{transform:translateY(1px);background:var(--tint);border-color:var(--accent-2)}
+@media (hover:hover){.opt:hover{border-color:var(--accent-2);background:var(--tint)}}
 .fake-input{color:var(--muted);font-size:14px;background:var(--soft);border:1px solid var(--line2);border-radius:999px;padding:7px 14px}
 .pnote{display:flex;flex-direction:column;gap:4px}
 .pnote .q{font-family:var(--f-display);font-size:16px;color:var(--ink)}
@@ -623,7 +627,7 @@ async function me(text,read,id){
 function idleDock(text){const d=$('#dock');d.innerHTML='';d.append(el('div','fake-input',text||'メッセージを入力'))}
 function choose(q,opts,id){return new Promise((res,rej)=>{
   if(id!==runId)return rej(ABORT);
-  const d=$('#dock');d.innerHTML='';d.append(el('div','q',fill(q)));
+  const d=$('#dock');d.innerHTML='';d.append(el('div','q',fill(q)),el('div','hint',(()=>{const k=['E','F'].includes(st.mode),one=opts.length===1;return one?(k?'下の ことばを タップすると おくれるよ':'下のメッセージをタップすると送信されます'):(k?'どれかを タップして えらんでね':'下のどれかをタップして選んでください')})()));
   opts.forEach(o=>{const b=el('button','opt',fill(o.t));b.onclick=()=>{idleDock();res(o)};d.append(b)});
   d.querySelector('.opt').focus({preventScroll:true});
   st.pending=rej;
