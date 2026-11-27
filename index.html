@@ -19,218 +19,253 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=BIZ+UDPGothic:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=BIZ+UDPMincho:wght@400;700&display=swap">
 <style>
-/* Layout: one phone-width column, full height. Header / scrolling chat log / bottom dock. Start and debrief are scrollable pages in the same column. */
+/* ===== スマホの向こう側：教材デザイン =====
+   方針：出版社・公的機関の教材に近い、落ち着いた紙面。明朝の見出し＋UDゴシックの本文、紺一色、細い罫線。
+   広い画面では、スタート・ふり返り・先生用は2段組の紙面、体験中は中央にスマホの枠。 */
 :root{
-  --bg:#f2f3f7; --panel:#ffffff; --chat:#eef0f6; --ink:#111318; --muted:#666b7c; --line:#e1e3ea;
-  --accent:#5b5bf0; --accent-ink:#ffffff; --grad:linear-gradient(135deg,#3d8bff 0%,#7b5cff 100%);
-  --mine:linear-gradient(135deg,#3d8bff 0%,#7b5cff 100%); --mine-ink:#ffffff; --other:#ffffff;
-  --soft:#f1f2f7; --sys:#e2e4ec; --sys-ink:#535a6b; --chip-on:#5b5bf0; --warn:#e5484d;
-  --p1:#ff4f86; --p2:#1fae7a; --p3:#9a66ff; --p4:#f59e0b; --p5:#3d8bff; --p6:#ff6b3d; --p7:#0fb5c2; --p8:#6f7591;
-  --shot:#f7f8fb; --shot-line:#dfe2ea; --ura:#ebe5f7; --gl-bg:#fff1bf; --gl-ink:#6a4b00;
-  --f-display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
-  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+  --paper:#f4f3ef; --panel:#ffffff; --ink:#1e2330; --ink2:#3b4252; --muted:#5f6675; --line:#dcd9d1; --line2:#ebe9e3;
+  --accent:#1f3d73; --accent-2:#2f5aa8; --accent-ink:#ffffff; --tint:#eef2f8; --soft:#f6f5f2;
+  --chat:#eceef2; --other:#ffffff; --mine:#2f5aa8; --mine-ink:#ffffff; --sys:#dfe2e8; --sys-ink:#454c5b;
+  --warn:#a8322b; --warn-tint:#fbefed; --ura:#e9e6ef; --gl-bg:#fff3c9; --gl-ink:#5e4600; --sel:#e7edf7;
+  --shot:#f7f7f5; --shot-line:#dedbd3;
+  --p1:#c8566f; --p2:#3c8a6b; --p3:#7a62b8; --p4:#c08a2d; --p5:#3f6fb5; --p6:#c46a45; --p7:#3a8f99; --p8:#6b7286;
+  --f-display:"BIZ UDPMincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+  --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0b0b10; --panel:#121219; --chat:#0e0e14; --ink:#f2f3f7; --muted:#9a9fb2; --line:#262833;
-  --accent:#8e8bff; --accent-ink:#0b0b10; --grad:linear-gradient(135deg,#3d8bff 0%,#7b5cff 100%);
-  --mine:linear-gradient(135deg,#3d7dff 0%,#7552ff 100%); --mine-ink:#ffffff; --other:#23242e;
-  --soft:#1b1c25; --sys:#23242e; --sys-ink:#c4c8d6; --chip-on:#8e8bff; --warn:#ff7b7f;
-  --shot:#1a1b23; --shot-line:#2e303c; --ura:#19142a; --gl-bg:#3a3014; --gl-ink:#ffe08a; color-scheme:dark}}
+  --paper:#111418; --panel:#171b21; --ink:#e9ecf1; --ink2:#c9ced8; --muted:#9aa2b1; --line:#2d333d; --line2:#242932;
+  --accent:#8fb0ea; --accent-2:#3f6cc0; --accent-ink:#0f1420; --tint:#1c2433; --soft:#1c2027;
+  --chat:#14181e; --other:#232831; --mine:#3f6cc0; --mine-ink:#ffffff; --sys:#262c35; --sys-ink:#c3c9d4;
+  --warn:#f08a80; --warn-tint:#2a1b1a; --ura:#1d1a26; --gl-bg:#3a3014; --gl-ink:#ffe08a; --sel:#1f2a3d;
+  --shot:#1c2027; --shot-line:#313742; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0b0b10; --panel:#121219; --chat:#0e0e14; --ink:#f2f3f7; --muted:#9a9fb2; --line:#262833;
-  --accent:#8e8bff; --accent-ink:#0b0b10; --grad:linear-gradient(135deg,#3d8bff 0%,#7b5cff 100%);
-  --mine:linear-gradient(135deg,#3d7dff 0%,#7552ff 100%); --mine-ink:#ffffff; --other:#23242e;
-  --soft:#1b1c25; --sys:#23242e; --sys-ink:#c4c8d6; --chip-on:#8e8bff; --warn:#ff7b7f;
-  --shot:#1a1b23; --shot-line:#2e303c; --ura:#19142a; --gl-bg:#3a3014; --gl-ink:#ffe08a; color-scheme:dark}
+  --paper:#111418; --panel:#171b21; --ink:#e9ecf1; --ink2:#c9ced8; --muted:#9aa2b1; --line:#2d333d; --line2:#242932;
+  --accent:#8fb0ea; --accent-2:#3f6cc0; --accent-ink:#0f1420; --tint:#1c2433; --soft:#1c2027;
+  --chat:#14181e; --other:#232831; --mine:#3f6cc0; --mine-ink:#ffffff; --sys:#262c35; --sys-ink:#c3c9d4;
+  --warn:#f08a80; --warn-tint:#2a1b1a; --ura:#1d1a26; --gl-bg:#3a3014; --gl-ink:#ffe08a; --sel:#1f2a3d;
+  --shot:#1c2027; --shot-line:#313742; color-scheme:dark}
 
 [hidden]{display:none!important}
 html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
-.app{max-width:520px;height:100%;margin:0 auto;display:flex;flex-direction:column;background:var(--panel);
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8;font-weight:400;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"palt" 0;
+  padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+b,strong{font-weight:700}
+a{color:var(--accent-2);text-underline-offset:3px}
+.app{max-width:560px;height:100%;margin:0 auto;display:flex;flex-direction:column;background:var(--panel);
   border-left:1px solid var(--line);border-right:1px solid var(--line)}
 button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
 
-.bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
-.bar .t{flex:1;min-width:0}
-.bar .t b{display:block;font-family:var(--f-display);font-size:18px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar .t small{color:var(--muted);font-size:13px}
-.stop{border:1.5px solid var(--warn);color:var(--warn);background:transparent;border-radius:999px;padding:6px 16px;font-size:15px;font-weight:700;white-space:nowrap}
-.gtog{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700;white-space:nowrap;color:var(--muted)}
-.gtog[aria-pressed="true"]{background:var(--gl-bg);color:var(--gl-ink);border-color:var(--gl-bg)}
+/* ---- header ---- */
+.bar{display:flex;align-items:center;gap:12px;padding:10px 18px;min-height:58px;border-bottom:1px solid var(--line);background:var(--panel)}
+.mark{flex:0 0 auto;width:28px;height:28px;color:var(--accent)}
+.bar .t{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}
+.bar .t b{font-family:var(--f-display);font-weight:700;font-size:17px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t small{color:var(--muted);font-size:12px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stop{border:1px solid var(--warn);color:var(--warn);background:var(--panel);border-radius:6px;padding:5px 14px;font-size:14px;font-weight:700;white-space:nowrap}
+.stop:hover{background:var(--warn-tint)}
+.gtog{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:5px 12px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
+.gtog[aria-pressed="true"]{background:var(--gl-bg);color:var(--gl-ink);border-color:transparent}
+.app[data-page="pChat"] .mark{display:none}
+.app[data-page="pChat"] .bar .t b{font-family:var(--f-body);letter-spacing:.01em;font-size:16px}
 
-.page{flex:1;overflow-y:auto;padding:24px 20px 32px;display:flex;flex-direction:column;gap:18px}
-.page h1{font-family:var(--f-display);font-size:32px;line-height:1.25;margin:0;text-wrap:balance}
-.page h2{font-family:var(--f-display);font-size:21px;margin:0 0 6px;text-wrap:balance}
-.eyebrow{font-size:14px;letter-spacing:.12em;color:var(--muted);font-weight:700}
-.lead{margin:0;color:var(--muted)}
-.notice{background:var(--soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+/* ---- pages ---- */
+.page{flex:1;overflow-y:auto;padding:28px 22px 40px;display:flex;flex-direction:column;gap:22px}
+.page h1{font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.4;letter-spacing:.04em;margin:0;text-wrap:balance}
+.page h2{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.5;letter-spacing:.03em;margin:0;text-wrap:balance}
+.eyebrow{font-size:13px;letter-spacing:.08em;color:var(--accent);font-weight:700;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
+.lead{margin:0;color:var(--ink2)}
+.meta{font-size:13px;color:var(--muted);line-height:1.7}
+.notice{background:var(--soft);border:1px solid var(--line2);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px;font-size:15px}
 .notice p{margin:0}
-.notice ul{margin:0;padding-left:1.2em}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label,.field .lb{font-weight:700;font-size:16px}
-.field input[type=text]{font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink)}
-.mode{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
-.mode:has(input:checked){border-color:var(--accent);background:var(--soft)}
-.mode input{margin-top:6px;accent-color:var(--accent)}
-.mode b{display:block}
-.mode span{font-size:15px;color:var(--muted)}
-.mode.parent{border-style:dashed}
-.ck{display:flex;gap:10px;align-items:flex-start;font-size:16px;cursor:pointer}
-.ck input{margin-top:5px;accent-color:var(--accent)}
-.primary{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:15px;font-weight:700;font-size:18px}
-.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:12px;font-weight:700}
-.meta{font-size:14px;color:var(--muted)}
-details{border-top:1px solid var(--line);padding-top:12px}
-summary{font-weight:700;cursor:pointer}
-details p,details li{font-size:16px}
+.notice ul{margin:0;padding-left:1.2em;color:var(--ink2)}
+.notice li+li{margin-top:4px}
 
+.card{border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+.card>h2{padding-bottom:10px;border-bottom:1px solid var(--line2)}
+.card p{margin:0}
+ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
+ul.learn li::marker{color:var(--accent)}
+
+/* ---- buttons ---- */
+.primary{background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:8px;padding:14px 18px;font-weight:700;font-size:16px;letter-spacing:.06em;text-align:center;text-decoration:none;transition:background .15s}
+.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.ghost{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:700;font-size:15px;color:var(--accent);text-align:center;text-decoration:none}
+.ghost:hover{border-color:var(--accent);background:var(--tint)}
+a.ghost{color:var(--accent)}
+.cta-btn{display:block}
+button:disabled{opacity:.45;cursor:default}
+
+/* ---- form ---- */
+.field{display:flex;flex-direction:column;gap:8px}
+.field label,.field .lb{font-weight:700;font-size:15px}
+.field input[type=text],select{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.field input[type=text]:focus,select:focus{border-color:var(--accent-2)}
+.mode{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;background:var(--panel);transition:border-color .15s,background .15s}
+.mode:hover{border-color:var(--accent-2)}
+.mode:has(input:checked){border-color:var(--accent);background:var(--sel);box-shadow:inset 3px 0 0 var(--accent)}
+.mode input{margin-top:6px;accent-color:var(--accent)}
+.mode b{display:block;font-size:15px}
+.mode span{font-size:14px;color:var(--muted);line-height:1.7;font-weight:400}
+.mode b span{font-size:inherit;color:inherit;font-weight:700}
+.ck{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
+.ck input{margin-top:6px;accent-color:var(--accent)}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.grade label{cursor:pointer;position:relative}
+.grade label+label{border-left:1px solid var(--line)}
+.grade input{position:absolute;opacity:0;pointer-events:none}
+.grade span{display:block;text-align:center;padding:10px 6px;font-weight:700;font-size:15px;color:var(--ink2);background:var(--panel)}
+.grade input:checked+span{background:var(--accent);color:var(--accent-ink)}
+.grade input:focus-visible+span{outline:2px solid var(--accent-2);outline-offset:-4px}
+
+/* ---- start page ---- */
+.start{display:flex;flex-direction:column;gap:26px}
+.intro,.setup{display:flex;flex-direction:column;gap:20px;min-width:0}
+.hero{display:flex;flex-direction:column;gap:12px}
+.hero-t{font-size:40px!important;line-height:1.25!important;letter-spacing:.06em!important}
+.hero-t .w{color:inherit}
+.kicker{margin:0;font-size:13px;color:var(--muted);letter-spacing:.04em}
+.kicker b{color:var(--accent);font-weight:700}
+dl.spec{margin:0;display:grid;grid-template-columns:7.5em 1fr;border-top:1px solid var(--ink);font-size:14px}
+dl.spec dt,dl.spec dd{margin:0;padding:9px 0;border-bottom:1px solid var(--line)}
+dl.spec dt{font-weight:700;color:var(--ink2)}
+dl.spec dd{color:var(--ink2)}
+.stat{margin:0;border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:flex;flex-direction:column;gap:4px}
+.stat .k{font-size:13px;color:var(--muted)}
+.stat .n{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.2;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.stat .n small{font-size:16px;margin-left:4px;color:var(--ink2)}
+.stat figcaption{font-size:13px;color:var(--muted);line-height:1.7}
+.setup{border:1px solid var(--line);border-radius:12px;padding:22px 20px;background:var(--panel)}
+.setup>h2{font-size:20px}
+.setup .field>.lb,.setup .field>label.lb,.setup .field>label[for=nameIn]{display:flex;align-items:baseline;gap:10px}
+.num{font-family:var(--f-display);font-weight:700;color:var(--accent);font-size:15px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.foot{margin-top:8px;border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);line-height:1.8}
+.foot p{margin:0}
+.foot .ttl{font-family:var(--f-display);font-weight:700;font-size:14px;color:var(--ink);letter-spacing:.04em}
+
+/* preview (device) */
+.prev{background:var(--chat);border:1px solid var(--line);border-radius:18px;padding:0 0 12px;display:flex;flex-direction:column;gap:9px;overflow:hidden}
+.prev-h{font-weight:700;font-size:14px;display:flex;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+.prev-h span{font-weight:400;font-size:12px;color:var(--muted)}
+.pv{display:flex;gap:8px;align-items:flex-start;padding:0 12px}
+.pv i{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:700;font-size:13px}
+.pv div{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.pv b{font-weight:400;background:var(--other);border-radius:4px 14px 14px 14px;padding:6px 12px;font-size:15px}
+.pv em{font-style:normal;font-size:12px;background:var(--gl-bg);color:var(--gl-ink);border-radius:4px;padding:1px 8px}
+.prev-cap{font-size:12px;color:var(--muted);margin:-12px 0 0;text-align:right}
+
+body.school .home-only,body:not(.school) .school-only{display:none!important}
+
+/* ---- chat ---- */
+.prog{list-style:none;margin:0;padding:8px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--panel);border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.prog li{display:flex;flex-direction:column;gap:4px;text-align:center}
+.prog li::before{content:"";height:3px;border-radius:2px;background:var(--line)}
+.prog li.done{color:var(--ink2)}
+.prog li.done::before{background:var(--accent-2);opacity:.45}
+.prog li.cur{color:var(--accent);font-weight:700}
+.prog li.cur::before{background:var(--accent)}
 .log{flex:1;overflow-y:auto;background:var(--chat);padding:14px 12px 20px;display:flex;flex-direction:column;gap:6px}
 .log.ura{background:var(--ura)}
 .log.home{background:var(--soft)}
-.sys{align-self:center;background:var(--sys);color:var(--sys-ink);font-size:14px;padding:3px 12px;border-radius:999px;text-align:center;max-width:90%;margin-block:4px}
-.row{display:flex;gap:8px;align-items:flex-start;max-width:88%}
-.row.in{animation:pop .18s ease-out}
-@keyframes pop{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
-.av{flex:0 0 36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;font-family:var(--f-display)}
+.sys{align-self:center;background:var(--sys);color:var(--sys-ink);font-size:12px;padding:3px 12px;border-radius:999px;text-align:center;max-width:90%;margin-block:6px;line-height:1.6}
+.row{display:flex;gap:8px;align-items:flex-start;max-width:86%}
+.row.in{animation:pop .16s ease-out}
+@keyframes pop{from{opacity:.2;transform:translateY(4px)}to{opacity:1;transform:none}}
+.av{flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
 .row.cont .av{visibility:hidden}
 .row.cont .who{display:none}
-.who{font-size:13px;color:var(--muted);margin-bottom:1px}
+.who{font-size:12px;color:var(--muted);margin-bottom:1px}
 .line{display:flex;align-items:flex-end;gap:5px}
-.bub{background:var(--other);border-radius:4px 18px 18px 18px;padding:8px 14px;font-size:17px;word-break:break-word;min-width:0}
-.tm{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.3}
+.bub{background:var(--other);border-radius:4px 16px 16px 16px;padding:7px 13px;font-size:16px;line-height:1.65;word-break:break-word;min-width:0;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.tm{font-size:11px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.3}
 .row.me{align-self:flex-end;flex-direction:row-reverse;align-items:flex-end}
 .row.me .line{flex-direction:row-reverse}
 .row.me .bub{background:var(--mine);color:var(--mine-ink);border-radius:16px 4px 16px 16px}
 .meta2{display:flex;flex-direction:column;align-items:flex-end}
 .typing .bub{color:var(--muted);letter-spacing:3px}
-.big{font-size:34px;line-height:1.2;background:transparent!important;padding:0}
-.gl{display:none;margin-top:3px;font-size:14px;line-height:1.5;background:var(--gl-bg);color:var(--gl-ink);border-radius:6px;padding:2px 8px}
+.big{font-size:34px;line-height:1.2;background:transparent!important;padding:0;box-shadow:none!important}
+.gl{display:none;margin-top:3px;font-size:13px;line-height:1.55;background:var(--gl-bg);color:var(--gl-ink);border-radius:4px;padding:2px 8px}
 .showgl .gl{display:block}
-.shot{background:var(--shot);border:1px solid var(--shot-line);border-radius:10px;padding:8px 10px;margin-top:6px;font-size:15px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
-.shot .h{font-size:13px;color:var(--muted);border-bottom:1px solid var(--shot-line);padding-bottom:4px}
-.shot b{font-weight:700}
+.shot{background:var(--shot);border:1px solid var(--shot-line);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+.shot .h{font-size:12px;color:var(--muted);border-bottom:1px solid var(--shot-line);padding-bottom:4px}
 
 .dock{border-top:1px solid var(--line);background:var(--panel);padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;max-height:55%;overflow-y:auto}
-.dock .q{font-size:16px;color:var(--muted);font-weight:700}
-.opt{text-align:left;background:var(--soft);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:500}
-.opt:hover{border-color:var(--accent)}
-.fake-input{color:var(--muted);font-size:15px;background:var(--soft);border-radius:999px;padding:8px 14px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 16px;font-size:16px}
-.chip[aria-pressed="true"]{background:var(--chip-on);border-color:var(--chip-on);color:var(--accent-ink);font-weight:700}
-.dock .acts{display:flex;gap:8px}
-.dock .acts button{flex:1}
+.dock .q{font-size:14px;color:var(--ink2);font-weight:700}
+.opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:15px;line-height:1.6;color:var(--ink)}
+.opt:hover{border-color:var(--accent-2);background:var(--tint)}
+.fake-input{color:var(--muted);font-size:14px;background:var(--soft);border:1px solid var(--line2);border-radius:999px;padding:7px 14px}
 .pnote{display:flex;flex-direction:column;gap:4px}
-.pnote p{margin:0;font-size:16px}
+.pnote .q{font-family:var(--f-display);font-size:16px;color:var(--ink)}
+.pnote p{margin:0;font-size:14px;color:var(--muted)}
+.hold{display:flex;flex-direction:column;gap:8px;text-align:center}
+.hold b{font-family:var(--f-display);font-size:18px}
 
-.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
-.card p{margin:0}
-.tag{display:inline-block;font-size:14px;background:var(--soft);border-radius:999px;padding:2px 10px;margin:2px 4px 2px 0}
-.tel{font-family:var(--f-display);font-size:26px;font-variant-numeric:tabular-nums;user-select:all;letter-spacing:.02em}
-.fb{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:16px}
-ol.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px}
+/* ---- debrief ---- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 14px;font-size:15px;text-align:left}
+.chip:hover{border-color:var(--accent-2)}
+.chip[aria-pressed="true"]{background:var(--sel);border-color:var(--accent);color:var(--accent);font-weight:700}
+.tag{display:inline-block;font-size:13px;background:var(--sel);color:var(--accent);border-radius:4px;padding:1px 8px;margin:2px 4px 2px 0}
+.tel{font-family:var(--f-display);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums;user-select:all;letter-spacing:.04em;color:var(--ink)}
+.fb{background:var(--tint);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 14px;font-size:15px}
+ol.steps{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:10px}
+ol.steps li::marker{font-family:var(--f-display);font-weight:700;color:var(--accent)}
 .checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .checks li{display:flex;gap:10px;align-items:baseline}
 .checks li::before{content:"□";color:var(--accent);font-weight:700}
-#selfList .chip{text-align:left;border-radius:12px;padding:8px 14px}
 .line-note{border-left:3px solid var(--warn);padding-left:10px;font-weight:700}
-dl.gloss{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:16px}
-dl.gloss dt{font-weight:700;white-space:nowrap}
-dl.gloss dd{margin:0;min-width:0}
+dl.gloss{margin:0;display:grid;grid-template-columns:auto 1fr;font-size:15px;border-top:1px solid var(--line2)}
+dl.gloss dt,dl.gloss dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line2)}
+dl.gloss dt{font-weight:700;white-space:nowrap;padding-right:16px}
+dl.gloss dd{min-width:0;color:var(--ink2)}
+details{border-top:1px solid var(--line);padding-top:14px}
+summary{font-weight:700;cursor:pointer;color:var(--ink2)}
+details p,details li{font-size:15px}
+.cta{background:var(--soft);border:1px solid var(--line2);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px}
+.cta p{margin:0;font-size:15px;color:var(--ink2)}
+.cta-item{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.cta-item b{font-size:15px}
+.cta-item p{font-size:14px}
+.cta2{background:var(--panel);border-color:var(--line)}
 
-.hero-t{font-size:46px!important;line-height:1.15!important;letter-spacing:.01em}
-.prev{background:var(--chat);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.prev-h{font-family:var(--f-display);font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:8px;padding:0 2px 4px}
-.prev-h span{font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
-.pv{display:flex;gap:8px;align-items:flex-start}
-.pv i{flex:0 0 32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:700;font-size:14px;font-family:var(--f-display)}
-.pv div{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
-.pv b{font-weight:400;background:var(--other);border-radius:4px 16px 16px 16px;padding:7px 12px;font-size:16px}
-.pv em{font-style:normal;font-size:13px;background:var(--gl-bg);color:var(--gl-ink);border-radius:6px;padding:1px 8px}
-body.school .home-only,body:not(.school) .school-only{display:none!important}
-.tbox{display:flex;flex-direction:column;gap:16px}
-#pTeacher select,#patSel{font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink)}
-.tstep{font-weight:700;color:var(--accent);letter-spacing:.08em}
-.tsay{font-family:var(--f-display);font-size:22px;line-height:1.6;background:var(--soft);border-radius:14px;padding:16px 18px}
-.tq p{font-size:19px;font-weight:700}
+/* ---- teacher ---- */
+.tbox{display:flex;flex-direction:column;gap:18px}
+.tstep{font-family:var(--f-display);font-weight:700;color:var(--accent);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.tsay{font-family:var(--f-display);font-size:22px;line-height:1.75;border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;padding:18px 22px}
+.tq p{font-size:18px;font-weight:700}
 .tnav{display:flex;gap:10px}.tnav button{flex:1}
-.ttimer{display:flex;align-items:center;gap:12px}
-#tClock{font-family:var(--f-display);font-size:28px;font-variant-numeric:tabular-nums}
-.hold{display:flex;flex-direction:column;gap:10px;text-align:center}
-.hold b{font-family:var(--f-display);font-size:20px}
-.cta{background:var(--soft);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:12px}
-.cta p{margin:0}
-.cta-items{display:flex;flex-direction:column;gap:10px}
-.cta-item{background:var(--panel);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
-.cta-item b{font-family:var(--f-display);font-size:18px}
-.cta-item p{font-size:16px}
-.cta-btn{display:block;text-align:center;text-decoration:none}
-.cta2{background:transparent;border:1px solid var(--line)}
-.cta2 .cta-item{background:var(--soft)}
-a.ghost{color:var(--accent);border-color:var(--accent)}
-ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
-.row.me .bub,.bub{border-radius:6px 20px 20px 20px}
-.row.me .bub{border-radius:20px 6px 20px 20px}
-.stop{border-radius:999px}
-.hero-t .w{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.grade{display:flex;gap:8px}
-.grade label{flex:1;cursor:pointer}
-.grade input{position:absolute;opacity:0;pointer-events:none}
-.grade span{display:block;text-align:center;padding:10px 6px;border:1.5px solid var(--line);border-radius:999px;font-weight:700}
-.grade input:checked+span{background:var(--grad);color:#fff;border-color:transparent}
-.grade input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
-@media (prefers-reduced-motion: reduce){.row.in{animation:none}}
+.ttimer{display:flex;align-items:center;gap:14px}
+#tClock{font-family:var(--f-display);font-weight:700;font-size:28px;font-variant-numeric:tabular-nums}
 
-/* ===== 学びのミカタに合わせた見た目 ===== */
-:root{--accent:#1cb0f6;--accent-d:#1899d6;--accent-ink:#ffffff;--grad:#1cb0f6;--mine:#1cb0f6;--mine-ink:#ffffff;--chip-on:#1cb0f6;
-  --bg:#ffffff;--panel:#ffffff;--chat:#f7f7f7;--ink:#3c3c3c;--muted:#777777;--line:#e5e5e5;--soft:#f7f7f7;--other:#ffffff;
-  --sys:#ececec;--sys-ink:#4b4b4b;--warn:#ff4b4b;--ura:#f3eefc;--sel:#ddf4ff;--gl-bg:#fff4c2;--gl-ink:#6b4f00;
-  --f-display:"M PLUS Rounded 1c","BIZ UDPGothic",sans-serif;--f-body:"BIZ UDPGothic","Hiragino Sans","Noto Sans JP",sans-serif}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#1cb0f6;--accent-d:#1480b3;--grad:#1cb0f6;--mine:#1cb0f6;--chip-on:#1cb0f6;
-  --bg:#131f24;--panel:#131f24;--chat:#18262c;--ink:#f1f7fb;--muted:#9db0bb;--line:#37464f;--soft:#1f2d33;--other:#22333b;
-  --sys:#2a3a42;--sys-ink:#c9d6dd;--warn:#ff6b6b;--ura:#221d31;--sel:#173a4d;--gl-bg:#3a3014;--gl-ink:#ffe08a;color-scheme:dark}}
-:root[data-theme="dark"]{--accent:#1cb0f6;--accent-d:#1480b3;--grad:#1cb0f6;--mine:#1cb0f6;--chip-on:#1cb0f6;
-  --bg:#131f24;--panel:#131f24;--chat:#18262c;--ink:#f1f7fb;--muted:#9db0bb;--line:#37464f;--soft:#1f2d33;--other:#22333b;
-  --sys:#2a3a42;--sys-ink:#c9d6dd;--warn:#ff6b6b;--ura:#221d31;--sel:#173a4d;--gl-bg:#3a3014;--gl-ink:#ffe08a;color-scheme:dark}
-body{font-weight:700;line-height:1.75}
-.bub{font-weight:400}
-.page h1,.page h2,.bar .t b,.mode b,.tsay,.tel,.dock .q,.hold b,.cta-item b,.door b{font-family:var(--f-display);font-weight:800}
-.hero-t .w{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--accent)}
-.app{border-left:2px solid var(--line);border-right:2px solid var(--line)}
-.bar{border-bottom:2px solid var(--line)}
-button.primary,a.primary,.primary{background:var(--accent);color:#fff;border:0;border-radius:16px;box-shadow:0 4px 0 var(--accent-d);font-family:var(--f-display);font-weight:800;letter-spacing:.03em;transition:transform .08s}
-.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-d)}
-.ghost,a.ghost{background:var(--panel);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;color:var(--accent-d);font-family:var(--f-display);font-weight:800}
-.ghost:active{transform:translateY(2px);border-bottom-width:2px}
-.opt{background:var(--panel);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;font-weight:700;color:var(--ink)}
-.opt:hover{border-color:var(--accent)}
-.opt:active{transform:translateY(2px);border-bottom-width:2px}
-.chip{border:2px solid var(--line);border-bottom-width:3px;font-weight:700}
-.chip[aria-pressed="true"]{background:var(--sel);border-color:var(--accent);color:var(--accent-d)}
-.mode{border:2px solid var(--line);border-bottom-width:4px;border-radius:16px}
-.mode:has(input:checked){border-color:var(--accent);background:var(--sel)}
-.mode.parent{border-style:solid}
-.grade span{border:2px solid var(--line);border-bottom-width:4px}
-.grade input:checked+span{background:var(--accent);color:#fff;border-color:var(--accent-d)}
-.stop{border:2px solid var(--warn);border-bottom-width:4px;border-radius:14px;font-family:var(--f-display);font-weight:800}
-.gtog{border:2px solid var(--line);border-bottom-width:4px;border-radius:14px}
-.card{border:2px solid var(--line);border-radius:16px}
-.notice{border-radius:16px}
-.field input[type=text],#patSel,#pTeacher select{border:2px solid var(--line);border-radius:12px}
-.cta{border-radius:16px}
-.cta2{border:2px solid var(--line)}
-.tag{background:var(--sel);color:var(--accent-d)}
-.row.me .bub{background:var(--mine)}
+/* ---- wide screens ---- */
+@media (min-width:880px){
+  body{padding:28px 24px}
+  .app{max-width:1040px;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,32,.04),0 12px 40px -12px rgba(20,24,32,.12)}
+  .bar{padding:12px 32px}
+  .page{padding:40px 48px 48px}
+  .start{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px;align-items:start}
+  .setup{position:sticky;top:0}
+  .hero-t{font-size:52px!important}
+  #pDebrief,#pQuit{padding-inline:max(48px,calc((100% - 720px)/2))}
+  #pTeacher{padding-inline:max(48px,calc((100% - 860px)/2))}
+  .app[data-page="pChat"]{max-width:440px;border-radius:28px;border:8px solid #1b1f27;box-shadow:0 20px 60px -20px rgba(20,24,32,.35)}
+  .tsay{font-size:26px}
+}
+@media (max-width:879px){.intro{display:contents}.hero{order:1}dl.spec{order:2}.setup{order:3}.prev{order:4}.prev-cap{order:5}.stat{order:6}.intro>.card{order:7}}
+@media (max-width:420px){.setup{padding:18px 16px}.hero-t{font-size:34px!important}.page{padding-inline:18px}}
+@media (prefers-reduced-motion: reduce){.row.in{animation:none}}
 </style>
 
 </head>
 <body>
 <div class="app">
   <header class="bar">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="12" y="3.5" width="14" height="22" rx="3" opacity=".35"/><rect x="6" y="6.5" width="14" height="22" rx="3" fill="var(--panel)"/><path d="M10 13h6M10 17h4" stroke-linecap="round"/></svg>
     <div class="t"><b id="barTitle">スマホの向こう側</b><small id="barSub">子どもたちのグループトーク体験</small></div>
     <button class="gtog" id="glBtn" aria-pressed="false" hidden>ことば解説</button>
     <button class="stop" id="stopBtn" hidden>やめる</button>
@@ -238,106 +273,135 @@ button.primary,a.primary,.primary{background:var(--accent);color:#fff;border:0;b
 
   <!-- START -->
   <section class="page" id="pStart">
-    <div class="eyebrow"><span class="home-only">子どもたちのグループトーク体験　家庭版</span><span class="school-only">子どもたちのグループトーク体験　学校版</span></div>
-    <h1 class="hero-t">スマホの<br><span class="w">向こう側</span></h1>
-    <p class="lead school-only">児童・生徒が、クラスのグループトークで起きる「される側」の3日間を自分の画面で体験し、送る側の自分をふり返る教材です。保護者会では、保護者がわが子の画面で体験する版も使えます。</p>
-    <p class="lead home-only">わが子のスマホに、ある3日間に届くグループトークを体験します。表のグループで流れる「ｗ」と、本人のいないグループで流れる「ｗ」。保護者が体験する版と、お子さんがおうちの人と一緒に体験する子ども版（小学生・中学生・高校生）があります。</p>
-
-    <div class="prev" aria-hidden="true">
-      <div class="prev-h">2年3組 みんな<span>メンバー 32人</span></div>
-      <div class="pv"><i style="background:var(--p2)">り</i><div><b>てか今日のゆいの寝ぐせガチえぐかったｗｗｗ</b><em>ガチ＝本当に　えぐい＝すごい、ひどい</em></div></div>
-      <div class="pv"><i style="background:var(--p5)">け</i><div><b>アンテナ立ってた😭</b><em>😭＝泣いているのではなく、大笑いの意味</em></div></div>
-      <div class="pv"><i style="background:var(--p3)">み</i><div><b>草</b><em>草＝笑</em></div></div>
-    </div>
-
-    <div class="card school-only">
-      <h2>授業での使い方</h2>
-      <ul class="learn">
-        <li>体験は約10分、ふり返りに10〜15分。1人1台の端末で、ブラウザだけで動きます</li>
-        <li>始める前に「途中でやめてよい」「参加しなくてもよい」と口頭でも伝えてください</li>
-        <li>いじめの被害を受けている、または受けた経験がある児童・生徒には、個別に参加の意思を確認してください</li>
-        <li>選んだ答えや気持ちは、どこにも送信・保存されません</li>
-      </ul>
-      <a class="ghost cta-btn" href="#teacher" id="toTeacher">先生用の進行画面を開く（プロジェクター用）</a>
-    </div>
-
-    <div class="card home-only">
-      <h2>体験してわかること</h2>
-      <ul class="learn">
-        <li>グループトークが、数秒でどれだけ流れていくか</li>
-        <li>「ｗ」「草」「😭」「鍵垢」など、子どもたちの言葉の意味</li>
-        <li>スマホを見せてもらっても見えない会話や、鍵アカのこと</li>
-        <li>子どもが「話してもいい」と思える声かけ</li>
-      </ul>
-    </div>
-
-    <div class="field">
-      <span class="lb"><span class="home-only">お子さんの学年</span><span class="school-only">学年</span></span>
-      <div class="grade" role="radiogroup" aria-label="学年">
-        <label><input type="radio" name="grade" value="E"><span>小学生</span></label>
-        <label><input type="radio" name="grade" value="M" checked><span>中学生</span></label>
-        <label><input type="radio" name="grade" value="H"><span>高校生</span></label>
+   <div class="start">
+    <div class="intro">
+      <div class="hero">
+        <p class="kicker"><b><span class="home-only">家庭版</span><span class="school-only">学校版</span></b>　グループトークの「される側」を体験する教材</p>
+        <h1 class="hero-t">スマホの<span class="w">向こう側</span></h1>
+        <p class="lead school-only">児童・生徒が、クラスのグループトークで起きる「される側」の3日間を自分の画面で体験し、送る側の自分をふり返る教材です。保護者会では、保護者がわが子の画面で体験する版も使えます。</p>
+        <p class="lead home-only">わが子のスマホに、ある3日間に届くグループトークを体験します。表のグループで流れる「ｗ」と、本人のいないグループで流れる「ｗ」。保護者が体験する版と、お子さんがおうちの人と一緒に体験する子ども版（小学生・中学生・高校生）があります。</p>
       </div>
-    </div>
 
-    <div class="field">
-      <span class="lb">どちらで体験しますか</span>
-      <label class="mode"><input type="radio" name="who" id="whoP" value="P" checked>
-        <div><b><span class="home-only">保護者版　約15分</span><span class="school-only">保護者会版　約15分</span></b><span>えらんだ学年のわが子のスマホに届くグループトークを体験し、家での声かけを選びます。ことば解説つき。</span></div></label>
-      <label class="mode"><input type="radio" name="who" id="whoK" value="K">
-        <div><b><span class="home-only">親子で体験する子ども版　約10分</span><span class="school-only">児童・生徒版　約10分</span></b><span class="home-only">お子さんが「される側」の3日間を体験します。終わったら、おうちの人と話すための問いが出ます。</span><span class="school-only">児童・生徒が「される側」の3日間を体験し、送る側の自分をふり返ります。ふり返り画面に授業での問いの例が出ます。</span></div></label>
-    </div>
+      <dl class="spec">
+        <dt>対象</dt><dd>小学校高学年・中学生・高校生と、その保護者</dd>
+        <dt>所要時間</dt><dd>子ども版 約10分／保護者版 約15分<span class="school-only">（ふり返りを含めて1単位時間）</span></dd>
+        <dt>動作環境</dt><dd>ブラウザのみ。インストール・会員登録は不要です</dd>
+        <dt>個人情報</dt><dd>入力した名前や選んだ答えは、どこにも送信・保存しません</dd>
+      </dl>
 
-    <div class="field" id="kidPick" hidden>
-      <span class="lb">お話をえらぶ</span>
-      <label class="mode" data-g="M"><input type="radio" name="mode" value="B" checked>
-        <div><b>いじり返し編</b><span>いじられても笑っていじり返す。そのノリが、どこから変わっていくのか。</span></div></label>
-      <label class="mode" data-g="M"><input type="radio" name="mode" value="C">
-        <div><b>陰口グループ編</b><span>表では「ありがとう」。でも自分のいないグループでは…。</span></div></label>
-      <label class="mode" data-g="M"><input type="radio" name="mode" value="A">
-        <div><b>静かな仲間はずれ編</b><span>既読スルー、本人のいないグループ、意味のわからない言葉。</span></div></label>
-      <label class="mode" data-g="E" hidden><input type="radio" name="mode" value="E">
-        <div><b>仲間はずれのグループ編</b><span>「人数いっぱい」と言われ、自分のいないグループがあると知る。</span></div></label>
-      <label class="mode" data-g="E" hidden><input type="radio" name="mode" value="F">
-        <div><b>あだ名とかくされたもの編</b><span>1回のしっぱいからついたあだ名と、かくされた持ちもの。</span></div></label>
-      <label class="mode" data-g="H" hidden><input type="radio" name="mode" value="H">
-        <div><b>裏アカ編</b><span>「誰とは言わんけど」。鍵アカで書かれ、クラスで隠語になっていく悪口。</span></div></label>
-      <label class="mode" data-g="H" hidden><input type="radio" name="mode" value="I">
-        <div><b>なりすまし・写真拡散編</b><span>グループに流れた写真と、自分の名前をかたるアカウント。</span></div></label>
-      <div class="field school-only">
-        <label for="patSel" class="lb">会話のパターン</label>
-        <select id="patSel"><option value="">おまかせ（ひとりずつちがう）</option><option value="0">パターン1</option><option value="1">パターン2</option><option value="2">パターン3</option></select>
-        <span class="meta">クラス全員で同じ会話を体験して話し合うときは、同じパターンを選んでください。</span>
+      <div class="prev" aria-hidden="true">
+        <div class="prev-h">2年3組 みんな<span>メンバー 32人</span></div>
+        <div class="pv"><i style="background:var(--p2)">り</i><div><b>てか今日のゆいの寝ぐせガチえぐかったｗｗｗ</b><em>ガチ＝本当に　えぐい＝すごい、ひどい</em></div></div>
+        <div class="pv"><i style="background:var(--p5)">け</i><div><b>アンテナ立ってた😭</b><em>😭＝泣いているのではなく、大笑いの意味</em></div></div>
+        <div class="pv"><i style="background:var(--p3)">み</i><div><b>草</b><em>草＝笑</em></div></div>
       </div>
-      <label class="ck school-only"><input type="checkbox" id="syncIn" checked>
-        <span><b>先生の合図で進める（一斉進行）</b><br><span class="meta">1日ごとに画面が止まり、先生の合図で次に進みます。</span></span></label>
-      <label class="ck school-only"><input type="checkbox" id="glIn">
-        <span><b>ことば解説を表示する</b><br><span class="meta">「草」「😭」「鍵垢」などの意味を、メッセージの下に表示します。体験中も右上のボタンで切りかえられます。</span></span></label>
-      <div class="notice kid-note home-only">
-        <p><b>おうちの人と一緒に始めてください</b></p>
-        <ul>
-          <li>つらくなったら、右上の「やめる」でいつでも終われます。やめてもいいし、やらなくてもいいです。</li>
-          <li>おうちの人は、となりで見守ってください。終わったあとは、答えを正すより、お子さんの話を聞くことを大切に。</li>
+      <p class="prev-cap">体験画面の例（ことば解説を表示したところ）</p>
+
+      <figure class="stat">
+        <span class="k">パソコンや携帯電話等を使ったいじめの認知件数（令和7年度）</span>
+        <span class="n">30,471<small>件</small></span>
+        <figcaption>前年度の27,365件から約1割増えています。グループトークでのいじめは大人から見えにくく、認知された件数は実際の一部と考えられます。<br>出典：文部科学省「令和7年度 児童生徒の問題行動・不登校等生徒指導上の諸課題に関する調査結果」</figcaption>
+      </figure>
+
+      <div class="card school-only">
+        <h2>授業での使い方</h2>
+        <ul class="learn">
+          <li>体験は約10分、ふり返りに10〜15分。1人1台の端末で、ブラウザだけで動きます</li>
+          <li>始める前に「途中でやめてよい」「参加しなくてもよい」と口頭でも伝えてください</li>
+          <li>いじめの被害を受けている、または受けた経験がある児童・生徒には、個別に参加の意思を確認してください</li>
+          <li>選んだ答えや気持ちは、どこにも送信・保存されません</li>
+        </ul>
+        <a class="ghost cta-btn" href="#teacher" id="toTeacher">先生用の進行画面を開く（プロジェクター用）</a>
+      </div>
+
+      <div class="card home-only">
+        <h2>体験してわかること</h2>
+        <ul class="learn">
+          <li>グループトークが、数秒でどれだけ流れていくか</li>
+          <li>「ｗ」「草」「😭」「鍵垢」など、子どもたちの言葉の意味</li>
+          <li>スマホを見せてもらっても見えない会話や、鍵アカのこと</li>
+          <li>子どもが「話してもいい」と思える声かけ</li>
         </ul>
       </div>
     </div>
 
-    <div class="field">
-      <label for="nameIn" id="nameLb">お子さんの名前（体験の中での仮の名前）</label>
-      <input type="text" id="nameIn" maxlength="8" value="ゆい" autocomplete="off">
-      <span class="meta">本名でなくてかまいません。入力した内容や選んだ答えは、どこにも送信・保存されません。</span>
-    </div>
-    <button class="primary" id="startBtn">体験をはじめる</button>
+    <div class="setup" role="group" aria-labelledby="setupH">
+      <h2 id="setupH">体験の設定</h2>
+      <div class="field">
+        <span class="lb"><span class="num">01</span><span class="home-only">お子さんの学年</span><span class="school-only">学年</span></span>
+        <div class="grade" role="radiogroup" aria-label="学年">
+          <label><input type="radio" name="grade" value="E"><span>小学生</span></label>
+          <label><input type="radio" name="grade" value="M" checked><span>中学生</span></label>
+          <label><input type="radio" name="grade" value="H"><span>高校生</span></label>
+        </div>
+      </div>
 
-    <div class="notice">
-      <p><b>はじめる前に</b></p>
-      <ul>
-        <li>登場する人物・グループ・あだ名はすべて架空のものです。子どもたちがふだん使う言葉づかいに近づけています。</li>
-        <li>つらい記憶がよみがえることがあります。右上の「やめる」でいつでも終われます。</li>
-        <li>子ども版は、いじめを受けている、または受けたことがあるお子さんにはつらい内容です。やるかどうかは、お子さんの気持ちを聞いてから決めてください。</li>
-      </ul>
+      <div class="field">
+        <span class="lb"><span class="num">02</span>体験する人</span>
+        <label class="mode"><input type="radio" name="who" id="whoP" value="P" checked>
+          <div><b><span class="home-only">保護者版　約15分</span><span class="school-only">保護者会版　約15分</span></b><span>えらんだ学年のわが子のスマホに届くグループトークを体験し、家での声かけを選びます。ことば解説つき。</span></div></label>
+        <label class="mode"><input type="radio" name="who" id="whoK" value="K">
+          <div><b><span class="home-only">親子で体験する子ども版　約10分</span><span class="school-only">児童・生徒版　約10分</span></b><span class="home-only">お子さんが「される側」の3日間を体験します。終わったら、おうちの人と話すための問いが出ます。</span><span class="school-only">児童・生徒が「される側」の3日間を体験し、送る側の自分をふり返ります。ふり返り画面に授業での問いの例が出ます。</span></div></label>
+      </div>
+
+      <div class="field" id="kidPick" hidden>
+        <span class="lb"><span class="num">03</span>お話</span>
+        <label class="mode" data-g="M"><input type="radio" name="mode" value="B" checked>
+          <div><b>いじり返し編</b><span>いじられても笑っていじり返す。そのノリが、どこから変わっていくのか。</span></div></label>
+        <label class="mode" data-g="M"><input type="radio" name="mode" value="C">
+          <div><b>陰口グループ編</b><span>表では「ありがとう」。でも自分のいないグループでは…。</span></div></label>
+        <label class="mode" data-g="M"><input type="radio" name="mode" value="A">
+          <div><b>静かな仲間はずれ編</b><span>既読スルー、本人のいないグループ、意味のわからない言葉。</span></div></label>
+        <label class="mode" data-g="E" hidden><input type="radio" name="mode" value="E">
+          <div><b>仲間はずれのグループ編</b><span>「人数いっぱい」と言われ、自分のいないグループがあると知る。</span></div></label>
+        <label class="mode" data-g="E" hidden><input type="radio" name="mode" value="F">
+          <div><b>あだ名とかくされたもの編</b><span>1回のしっぱいからついたあだ名と、かくされた持ちもの。</span></div></label>
+        <label class="mode" data-g="H" hidden><input type="radio" name="mode" value="H">
+          <div><b>裏アカ編</b><span>「誰とは言わんけど」。鍵アカで書かれ、クラスで隠語になっていく悪口。</span></div></label>
+        <label class="mode" data-g="H" hidden><input type="radio" name="mode" value="I">
+          <div><b>なりすまし・写真拡散編</b><span>グループに流れた写真と、自分の名前をかたるアカウント。</span></div></label>
+        <div class="field school-only">
+          <label for="patSel" class="lb">会話のパターン</label>
+          <select id="patSel"><option value="">おまかせ（ひとりずつちがう）</option><option value="0">パターン1</option><option value="1">パターン2</option><option value="2">パターン3</option></select>
+          <span class="meta">クラス全員で同じ会話を体験して話し合うときは、同じパターンを選んでください。</span>
+        </div>
+        <label class="ck school-only"><input type="checkbox" id="syncIn" checked>
+          <span><b>先生の合図で進める（一斉進行）</b><br><span class="meta">1日ごとに画面が止まり、先生の合図で次に進みます。</span></span></label>
+        <label class="ck school-only"><input type="checkbox" id="glIn">
+          <span><b>ことば解説を表示する</b><br><span class="meta">「草」「😭」「鍵垢」などの意味を、メッセージの下に表示します。体験中も右上のボタンで切りかえられます。</span></span></label>
+        <div class="notice kid-note home-only">
+          <p><b>おうちの人と一緒に始めてください</b></p>
+          <ul>
+            <li>つらくなったら、右上の「やめる」でいつでも終われます。やめてもいいし、やらなくてもいいです。</li>
+            <li>おうちの人は、となりで見守ってください。終わったあとは、答えを正すより、お子さんの話を聞くことを大切に。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="nameIn" class="lb"><span class="num" id="nameNum">03</span><span id="nameLb">お子さんの名前（体験の中での仮の名前）</span></label>
+        <input type="text" id="nameIn" maxlength="8" value="ゆい" autocomplete="off">
+        <span class="meta">本名でなくてかまいません。</span>
+      </div>
+      <button class="primary" id="startBtn">体験をはじめる</button>
+
+      <div class="notice">
+        <p><b>はじめる前に</b></p>
+        <ul>
+          <li>登場する人物・グループ・あだ名はすべて架空のものです。子どもたちがふだん使う言葉づかいに近づけています。</li>
+          <li>つらい記憶がよみがえることがあります。右上の「やめる」でいつでも終われます。</li>
+          <li>子ども版は、いじめを受けている、または受けたことがあるお子さんにはつらい内容です。やるかどうかは、お子さんの気持ちを聞いてから決めてください。</li>
+        </ul>
+      </div>
     </div>
-    <p class="meta home-only">制作：hiroko（<a href="https://manabino-mikata.com/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café Kurume</a>）　お問い合わせ：<a href="https://lin.ee/R9yyS3u" target="_blank" rel="noopener">公式LINE</a></p>
+   </div>
+
+    <footer class="foot">
+      <p class="ttl">スマホの向こう側　第1版（2026年11月）</p>
+      <p>制作：hiroko<span class="home-only">（<a href="https://manabino-mikata.com/mama-cafe-kurume/" target="_blank" rel="noopener">Mama Café Kurume</a>）</span>　お問い合わせ：<a href="https://lin.ee/R9yyS3u" target="_blank" rel="noopener">公式LINE</a></p>
+      <p>作中の人物・グループ・あだ名・隠語はすべて架空です。相談先：24時間子供SOSダイヤル 0120-0-78310／チャイルドライン 0120-99-7777</p>
+      <p>読みやすさに配慮し、ユニバーサルデザインフォント（BIZ UDゴシック・BIZ UD明朝）を使用しています。</p>
+    </footer>
   </section>
 
   <!-- TEACHER -->
@@ -371,6 +435,7 @@ button.primary,a.primary,.primary{background:var(--accent);color:#fff;border:0;b
 
   <!-- CHAT -->
   <section id="pChat" hidden style="flex:1;flex-direction:column;min-height:0">
+    <ol class="prog" id="prog" aria-label="進み具合"><li>1日目</li><li>2日目</li><li>3日目</li><li>ふり返り</li></ol>
     <div class="log" id="log" aria-live="polite"></div>
     <div class="dock" id="dock"><div class="fake-input">メッセージを入力</div></div>
   </section>
@@ -497,7 +562,7 @@ const FEELS=['楽しかった','ほっとした','悲しい','不安','くやし
 let st, runId=0;
 const ABORT={};
 
-function show(id){['pStart','pChat','pQuit','pDebrief','pTeacher'].forEach(p=>$('#'+p).hidden=(p!==id));
+function show(id){document.querySelector('.app').dataset.page=id;['pStart','pChat','pQuit','pDebrief','pTeacher'].forEach(p=>$('#'+p).hidden=(p!==id));
   $('#stopBtn').hidden=(id!=='pChat');$('#glBtn').hidden=(id!=='pChat');
   $('#pChat').style.display=(id==='pChat')?'flex':''}
 function setBar(t,s){$('#barTitle').textContent=t;$('#barSub').textContent=s||''}
@@ -1734,7 +1799,9 @@ async function start(fm){
   clear();idleDock();show('pChat');setGl(mode.startsWith('P')||(SCHOOL&&$('#glIn').checked));
   const scenes={A:[a1,a2,a3,mirror],B:[b1,b2,b3,mirror],C:[c1,c2,c3,mirror],PE:[pIntroE,e1,pnE1,e2,pnE2,e3,pnE3,pFeel,pHomeE],PH:[pIntroH,h1,pnH1,h2,pnH2,h3,pnH3,pFeel,pHomeH],E:[e1,e2,e3,mirror],F:[f1,f2,f3,mirror],H:[h1,h2,h3,mirror],I:[i1,i2,i3,mirror],P:[pIntro,c1,pn1,c2,pn2,c3,pn3,pFeel,pHome]}[mode];
   const HOLD_AFTER=new Set([a1,a2,a3,b1,b2,b3,c1,c2,c3,e1,e2,e3,f1,f2,f3,h1,h2,h3,i1,i2,i3,mirror]);
-  try{for(const s of scenes){await s(id);if(!mode.startsWith('P')&&HOLD_AFTER.has(s))await hold(id);}await wait(400,id);debrief();}
+  const DAYF=[...HOLD_AFTER].filter(f=>f!==mirror);let day=0;
+  const prog=k=>document.querySelectorAll('#prog li').forEach((li,i)=>{li.className=i<k-1?'done':i===k-1?'cur':''});prog(0);
+  try{for(const s of scenes){if(DAYF.includes(s))prog(++day);else if(s===mirror||s===pFeel)prog(4);await s(id);if(!mode.startsWith('P')&&HOLD_AFTER.has(s))await hold(id);}await wait(400,id);debrief();}
   catch(e){if(e!==ABORT)throw e}
 }
 function quit(){runId++;if(st&&st.pending){try{st.pending(ABORT)}catch(e){}}if(st)st.ending=null;
@@ -1743,7 +1810,7 @@ function home(){runId++;show('pStart');syncWho();setBar(BRAND,SUB)}
 
 function syncWho(){const k=document.querySelector('input[name=who]:checked').value==='K';
   $('#kidPick').hidden=!k;
-  $('#nameLb').textContent=k?'体験の中でのあなたの名前（本名でなくてOK）':'お子さんの名前（体験の中での仮の名前）';
+  $('#nameNum').textContent=k?'04':'03';$('#nameLb').textContent=k?'体験の中でのあなたの名前（本名でなくてOK）':'お子さんの名前（体験の中での仮の名前）';
   if(k&&$('#nameIn').value==='ゆい')$('#nameIn').value='ひなた';
   if(!k&&$('#nameIn').value==='ひなた')$('#nameIn').value='ゆい';}
 document.querySelectorAll('input[name=who]').forEach(r=>r.addEventListener('change',syncWho));
