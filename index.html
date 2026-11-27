@@ -19,7 +19,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=BIZ+UDPGothic:wght@400;700&display=swap">
 <style>
 /* Layout: one phone-width column, full height. Header / scrolling chat log / bottom dock. Start and debrief are scrollable pages in the same column. */
 :root{
@@ -173,10 +173,8 @@ body.school .home-only,body:not(.school) .school-only{display:none!important}
 .cta2 .cta-item{background:var(--soft)}
 a.ghost{color:var(--accent);border-color:var(--accent)}
 ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
-.primary{background:var(--grad)!important;color:#fff!important;box-shadow:0 6px 18px -8px rgba(91,91,240,.55)}
 .row.me .bub,.bub{border-radius:6px 20px 20px 20px}
 .row.me .bub{border-radius:20px 6px 20px 20px}
-.chip[aria-pressed="true"]{background:var(--grad);border-color:transparent;color:#fff}
 .stop{border-radius:999px}
 .hero-t .w{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .grade{display:flex;gap:8px}
@@ -186,6 +184,47 @@ ul.learn{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
 .grade input:checked+span{background:var(--grad);color:#fff;border-color:transparent}
 .grade input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){.row.in{animation:none}}
+
+/* ===== 学びのミカタに合わせた見た目 ===== */
+:root{--accent:#1cb0f6;--accent-d:#1899d6;--accent-ink:#ffffff;--grad:#1cb0f6;--mine:#1cb0f6;--mine-ink:#ffffff;--chip-on:#1cb0f6;
+  --bg:#ffffff;--panel:#ffffff;--chat:#f7f7f7;--ink:#3c3c3c;--muted:#777777;--line:#e5e5e5;--soft:#f7f7f7;--other:#ffffff;
+  --sys:#ececec;--sys-ink:#4b4b4b;--warn:#ff4b4b;--ura:#f3eefc;--sel:#ddf4ff;--gl-bg:#fff4c2;--gl-ink:#6b4f00;
+  --f-display:"M PLUS Rounded 1c","BIZ UDPGothic",sans-serif;--f-body:"BIZ UDPGothic","Hiragino Sans","Noto Sans JP",sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#1cb0f6;--accent-d:#1480b3;--grad:#1cb0f6;--mine:#1cb0f6;--chip-on:#1cb0f6;
+  --bg:#131f24;--panel:#131f24;--chat:#18262c;--ink:#f1f7fb;--muted:#9db0bb;--line:#37464f;--soft:#1f2d33;--other:#22333b;
+  --sys:#2a3a42;--sys-ink:#c9d6dd;--warn:#ff6b6b;--ura:#221d31;--sel:#173a4d;--gl-bg:#3a3014;--gl-ink:#ffe08a;color-scheme:dark}}
+:root[data-theme="dark"]{--accent:#1cb0f6;--accent-d:#1480b3;--grad:#1cb0f6;--mine:#1cb0f6;--chip-on:#1cb0f6;
+  --bg:#131f24;--panel:#131f24;--chat:#18262c;--ink:#f1f7fb;--muted:#9db0bb;--line:#37464f;--soft:#1f2d33;--other:#22333b;
+  --sys:#2a3a42;--sys-ink:#c9d6dd;--warn:#ff6b6b;--ura:#221d31;--sel:#173a4d;--gl-bg:#3a3014;--gl-ink:#ffe08a;color-scheme:dark}
+body{font-weight:700;line-height:1.75}
+.bub{font-weight:400}
+.page h1,.page h2,.bar .t b,.mode b,.tsay,.tel,.dock .q,.hold b,.cta-item b,.door b{font-family:var(--f-display);font-weight:800}
+.hero-t .w{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--accent)}
+.app{border-left:2px solid var(--line);border-right:2px solid var(--line)}
+.bar{border-bottom:2px solid var(--line)}
+button.primary,a.primary,.primary{background:var(--accent);color:#fff;border:0;border-radius:16px;box-shadow:0 4px 0 var(--accent-d);font-family:var(--f-display);font-weight:800;letter-spacing:.03em;transition:transform .08s}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-d)}
+.ghost,a.ghost{background:var(--panel);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;color:var(--accent-d);font-family:var(--f-display);font-weight:800}
+.ghost:active{transform:translateY(2px);border-bottom-width:2px}
+.opt{background:var(--panel);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;font-weight:700;color:var(--ink)}
+.opt:hover{border-color:var(--accent)}
+.opt:active{transform:translateY(2px);border-bottom-width:2px}
+.chip{border:2px solid var(--line);border-bottom-width:3px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--sel);border-color:var(--accent);color:var(--accent-d)}
+.mode{border:2px solid var(--line);border-bottom-width:4px;border-radius:16px}
+.mode:has(input:checked){border-color:var(--accent);background:var(--sel)}
+.mode.parent{border-style:solid}
+.grade span{border:2px solid var(--line);border-bottom-width:4px}
+.grade input:checked+span{background:var(--accent);color:#fff;border-color:var(--accent-d)}
+.stop{border:2px solid var(--warn);border-bottom-width:4px;border-radius:14px;font-family:var(--f-display);font-weight:800}
+.gtog{border:2px solid var(--line);border-bottom-width:4px;border-radius:14px}
+.card{border:2px solid var(--line);border-radius:16px}
+.notice{border-radius:16px}
+.field input[type=text],#patSel,#pTeacher select{border:2px solid var(--line);border-radius:12px}
+.cta{border-radius:16px}
+.cta2{border:2px solid var(--line)}
+.tag{background:var(--sel);color:var(--accent-d)}
+.row.me .bub{background:var(--mine)}
 </style>
 
 </head>
