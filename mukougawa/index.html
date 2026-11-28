@@ -171,6 +171,13 @@ body.school .home-only,body:not(.school) .school-only{display:none!important}
 .prog li.cur::before{background:var(--accent)}
 .log{flex:1;overflow-y:auto;background:var(--chat);padding:14px 12px 20px;display:flex;flex-direction:column;gap:6px}
 .log.ura{background:var(--ura)}
+.log.sns .row.post .bub{border-radius:10px;font-size:17px;padding:14px 16px;border:1px solid var(--line,#ddd)}
+.log.sns .row.post .who::after{content:'　の投稿';color:var(--muted)}
+.log.sns .row.cmt{margin-left:52px;margin-top:2px}
+.log.sns .row.cmt .av{width:28px;height:28px;font-size:13px}
+.log.sns .row.cmt .bub{font-size:15px;padding:6px 12px;border-radius:14px}
+.log.sns .row.cmt .who::after{content:'　コメント';color:var(--muted)}
+.log.sns .row.cmt.cont .who{display:block}
 .log.home{background:var(--soft)}
 .sys{align-self:center;background:var(--sys);color:var(--sys-ink);font-size:12px;padding:3px 12px;border-radius:999px;text-align:center;max-width:90%;margin-block:6px;line-height:1.6}
 .row{display:flex;gap:8px;align-items:flex-start;max-width:86%}
@@ -598,6 +605,7 @@ function avatar(name){const a=el('div','av',name[0]);a.style.background=`var(${P
 function bubble(name,text,opt={}){
   name=fill(name);
   const r=el('div','row in');if(st.last===name)r.classList.add('cont');st.last=name;
+  if(opt.post){r.classList.add('post');st.last=null}if(opt.cmt)r.classList.add('cmt');
   r.append(avatar(name));
   const col=el('div');col.style.minWidth='0';col.append(el('div','who',name));
   const line=el('div','line');
@@ -1240,7 +1248,7 @@ async function f3(id){
 
 /* ----- 高校生：裏アカ ----- */
 async function ura2(id,t){
-  room('ura2','@{acct}（鍵アカ）','非公開・フォロワー24人','ura');
+  room('ura2','@{acct}（鍵アカ）','非公開・フォロワー24人','ura sns');
   idleDock('このアカウントは非公開です');
   await sys(t,id);
 }
@@ -1256,9 +1264,9 @@ async function h1(id){
   await burst(id,[['れん','👏',{big:true}],['ゆな','おめ']]);
   await wait(2200,id);
   clock(23,12);
-  await ura2(id,'同じ日の23:12　クラスの誰かの鍵アカでは…');
-  await burst(id,[['{acct}',v.post,{g:'鍵アカ＝承認したフォロワーしか見られない非公開アカウント／裏アカ＝本名や友だちに知られていない別のアカウント'}],
-    ['ゆな','わかる'],['しゅん','それな'],['{acct}','顔に出てるのが無理なんよ'],['れん','言い方ｗ']]);
+  await ura2(id,'同じ日の23:12　クラスの誰かの鍵アカ（{n}は見られない）に、こんな投稿が…');
+  await burst(id,[['{acct}',v.post,{post:true,g:'鍵アカ＝承認したフォロワーしか見られない非公開アカウント／裏アカ＝本名や友だちに知られていない別のアカウント'}],
+    ['ゆな','わかる',{cmt:true}],['しゅん','それな',{cmt:true}],['{acct}','顔に出てるのが無理なんよ',{cmt:true}],['れん','言い方ｗ',{cmt:true}]]);
   await wait(1400,id);
   await feel('1日目',id);
 }
@@ -1290,8 +1298,8 @@ async function h3(id){
   else{await wait(2500,id);await burst(id,[['ゆな','😇'],['しゅん','笑']]);}
   await wait(1500,id);
   clock(22,40);
-  await ura2(id,'同じ日の22:40　鍵アカでは…');
-  await burst(id,[['{acct}',c.v==='quiet'?'今日も平和〜笑':'グループでなんか言われた〜こわ〜笑'],['ゆな','笑'],['しゅん','気にしすぎ笑']]);
+  await ura2(id,'同じ日の22:40　同じ鍵アカに、新しい投稿が…');
+  await burst(id,[['{acct}',c.v==='quiet'?'今日も平和〜笑':'グループでなんか言われた〜こわ〜笑',{post:true}],['ゆな','笑',{cmt:true}],['しゅん','気にしすぎ笑',{cmt:true}]]);
   await wait(1200,id);
   await feel('3日目',id);
   if(st.mode.startsWith('P'))return;
@@ -1499,8 +1507,8 @@ async function pIntroH(id){
     'この体験では、{n}さんが見られない鍵アカの投稿も表示されます。メッセージの下の黄色い欄は、言葉の意味の解説です。'],id);
 }
 async function pnH1(id){await note('解説：鍵アカの悪口',[
-  'グループでは「おめ〜🎉」。同じ日の夜、クラスの誰かの鍵アカでは「誰とは言わんけど、調子乗ってる人無理」。',
-  'フォロワーの「わかる」「それな」だけで、悪口の場ができあがっていきます。'],id);}
+  'グループでは「おめ〜🎉」。同じ日の夜、クラスの誰かの鍵アカには「{post}」という投稿。',
+  'フォロワーの「わかる」「それな」というコメントだけで、悪口の場ができあがっていきます。グループでお祝いしていた子も、ここではコメントしています。'],id);}
 async function pnH2(id){await note('解説：「誰とは言わんけど」',[
   '名指ししないので、本人が相談しても「気にしすぎじゃない？」と言われやすく、相談しにくくなります。',
   'ストーリーは24時間で消えます。友だちのスクショがなければ、本人も保護者も見ることができません。'],id);}
